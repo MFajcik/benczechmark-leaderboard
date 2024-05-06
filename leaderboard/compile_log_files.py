@@ -8,7 +8,7 @@ from tqdm import tqdm
 from leaderboard import SUPPORTED_METRICS
 
 
-def process_harness_logs(input_folder, output_file, model_name, model_description):
+def process_harness_logs(input_folder, output_file, model_name, model_url, model_description):
     """
     - Selects best prompt for each task
     - Extract data for that prompt, necessary for targe/mnt/data/ifajcik/micromamba/envs/envs/lmharnest metrics
@@ -78,10 +78,11 @@ def process_harness_logs(input_folder, output_file, model_name, model_descriptio
                                     del prediction[key]
     aggregated_predictions = dict()
     aggregated_predictions["predictions"] = predictions
-    aggregated_predictions["results"] = harness_results
+    aggregated_predictions["results"] = per_task_results
     aggregated_predictions["metadata"] = {
         "model_name": model_name,
         "model_description": model_description,
+        "model_url": model_url
     }
     with open(output_file, "w") as f:
         json.dump(aggregated_predictions, f)
@@ -91,13 +92,14 @@ def main():
     parser = argparse.ArgumentParser(
         description="Process outputs of lm harness into minimum compatible format necessary for leaderboard submission.")
     parser.add_argument("-i", "-f", "--input_folder", "--folder",
-                        help="Folder with unprocessed results from lm harness.")
-    parser.add_argument("-o", "--output_file", help="File to save processed results.")
-    parser.add_argument("--model_name", help="Name of the model.")
-    parser.add_argument("--model_description", help="Description of the model.")
+                        help="Folder with unprocessed results from lm harness.", required=True)
+    parser.add_argument("-o", "--output_file", help="File to save processed results.", required=True)
+    parser.add_argument("--name", help="Name of the model.", required=True)
+    parser.add_argument("--url", help="URL of the model.", required=False)
+    parser.add_argument("--description", help="Description of the model.", required=True)
     args = parser.parse_args()
 
-    process_harness_logs(args.input_folder, args.output_file, args.model_name, args.model_description)
+    process_harness_logs(args.input_folder, args.output_file, args.name, args.url, args.description)
 
 
 if __name__ == "__main__":
