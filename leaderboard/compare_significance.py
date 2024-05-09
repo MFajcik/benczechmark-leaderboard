@@ -5,6 +5,7 @@ from typing import Sequence
 
 import numpy
 import numpy as np
+from scipy.stats import ttest_ind, ttest_rel
 from sklearn.metrics import roc_curve, auc
 from tqdm import tqdm
 
@@ -35,6 +36,29 @@ def _get_CMs(i, probabilities, references, thresholds):
     return confusion_matrices
 
 
+def compute_significance_accuracy(predsA, referencesA, predsB, referencesB):
+    # following https://github.com/rtmdrr/testSignificanceNLP/blob/c7302d015538944364b622eb860dd9fbee6d50ec/testSignificance.py#L164C32-L165C24
+    # Calculate the T-test on TWO RELATED samples of scores, a and b. for one sided test we multiply p-value by half
+    scores_A  = [1 if pred == ref else 0 for pred, ref in zip(predsA, referencesA)]
+    scores_B  = [1 if pred == ref else 0 for pred, ref in zip(predsB, referencesB)]
+    t, p = ttest_rel(scores_A, scores_B)
+    # correct for one-tailed test
+    p_value = p / 2
+    delta = np.mean(scores_A) - np.mean(scores_B)
+    return p_value, delta
+
+def compute_significance_em(predsA, referencesA, predsB, referencesB):
+    pass
+def compute_significance_rouge(predsA, referencesA, predsB, referencesB):
+    # TODO: MDocekal
+    # Use bootstrapping
+    # https://github.com/rtmdrr/testSignificanceNLP/blob/c7302d015538944364b622eb860dd9fbee6d50ec/testSignificance.py#L89
+    pass
+def compute_significance_ppl(predsA, referencesA, predsB, referencesB):
+    # TODO: MDocekal
+    # Use bootstrapping
+    # https://github.com/rtmdrr/testSignificanceNLP/blob/c7302d015538944364b622eb860dd9fbee6d50ec/testSignificance.py#L89
+    pass
 def compute_significance_avg_mcauroc(probsA: Sequence[Sequence[float]], referencesA: Sequence[int],
                                      probsB: Sequence[Sequence[float]], referencesB: Sequence[int]):
     # compute MC-AUC for model A
@@ -126,11 +150,23 @@ def check_significance(fileA, fileB, significance_level):
         if metricA == "avg_mcauroc":
             p_value, delta = compute_significance_avg_mcauroc(probsA=dataA[task][0][1], referencesA=dataA[task][0][0],
                                                               probsB=dataB[task][0][1], referencesB=dataB[task][0][0])
-            decisions[task] = {
-                "significant": not (p_value > significance_level),
-                "p_value": p_value,
-                "delta": delta,
-            }
+
+        elif metricA == "acc":
+            p_value, delta = compute_significance_accuracy(predsA=dataA[task][0][1], referencesA=dataA[task][0][0],
+                                                           predsB=dataB[task][0][1], referencesB=dataB[task][0][0])
+        elif metricA == "em":
+            raise NotImplementedError("Exact match is not supported yet.")
+        elif metricA == "rouge":
+            raise NotImplementedError("Rouge is not supported yet.")
+        elif metricA == "ppl":
+            raise NotImplementedError("Perplexity is not supported yet.")
+        else:
+            raise ValueError(f"Unsupported metric {metricA}")
+        decisions[task] = {
+            "significant": not (p_value > significance_level),
+            "p_value": p_value,
+            "delta": delta,
+        }
     return decisions
 
 
@@ -144,6 +180,8 @@ def main():
     result = check_significance(args.modelA, args.modelB, args.significance_level)
     print(json.dumps(result, indent=2))
 
+# harness already returns stderr estimate for sampling distribution
+# see https://github.com/EleutherAI/lm-evaluation-harness/blob/6433bd3fe3033d302b22cdcd53af237e9039ef29/lm_eval/api/metrics.py#L213
 
 if __name__ == "__main__":
     main()
