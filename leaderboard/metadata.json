@@ -1,0 +1,159 @@
+{
+  "tasks": {
+    "benczechmark_propaganda_argumentace": {
+      "task": "benczechmark_propaganda_argumentace",
+      "name": "P-Argumentace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_argumentace"
+    },
+    "benczechmark_propaganda_fabulace": {
+      "task": "benczechmark_propaganda_fabulace",
+      "name": "P-Fabulace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_fabulace"
+    },
+    "benczechmark_propaganda_nazor": {
+      "task": "benczechmark_propaganda_nazor",
+      "name": "P-Názor",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nazor"
+    },
+    "benczechmark_propaganda_strach": {
+      "task": "benczechmark_propaganda_strach",
+      "name": "P-Strach",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_strach"
+    },
+    "benczechmark_propaganda_zamereni": {
+      "task": "benczechmark_propaganda_zamereni",
+      "name": "P-Zaměření",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zamereni"
+    },
+    "benczechmark_propaganda_demonizace": {
+      "task": "benczechmark_propaganda_demonizace",
+      "name": "P-Demonizace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_demonizace"
+    },
+    "benczechmark_propaganda_lokace": {
+      "task": "benczechmark_propaganda_lokace",
+      "name": "P-Lokace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_lokace"
+    },
+    "benczechmark_propaganda_relativizace": {
+      "task": "benczechmark_propaganda_relativizace",
+      "name": "P-Relativizace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_relativizace"
+    },
+    "benczechmark_propaganda_vina": {
+      "task": "benczechmark_propaganda_vina",
+      "name": "P-Vina",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_vina"
+    },
+    "benczechmark_propaganda_zanr": {
+      "task": "benczechmark_propaganda_zanr",
+      "name": "P-Žánr",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zanr"
+    },
+    "benczechmark_propaganda_emoce": {
+      "task": "benczechmark_propaganda_emoce",
+      "name": "P-Emoce",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_emoce"
+    },
+    "benczechmark_propaganda_nalepkovani": {
+      "task": "benczechmark_propaganda_nalepkovani",
+      "name": "P-Nalepkování",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nalepkovani"
+    },
+    "benczechmark_propaganda_rusko": {
+      "task": "benczechmark_propaganda_rusko",
+      "name": "P-Rusko",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_rusko"
+    },
+    "benczechmark_sentiment_mall": {
+      "task": "benczechmark_sentiment_mall",
+      "name": "S-Mall",
+      "source_url": "https://huggingface.co/datasets/CZLC/mall_sentiment_balanced"
+    },
+    "benczechmark_sentiment_fb": {
+      "task": "benczechmark_sentiment_fb",
+      "name": "S-FB",
+      "source_url": "https://huggingface.co/datasets/CZLC/fb_sentiment_balanced"
+    },
+    "benczechmark_sentiment_csfd": {
+      "task": "benczechmark_sentiment_csfd",
+      "name": "S-CSFD",
+      "source_url": "https://huggingface.co/datasets/CZLC/csfd_sentiment_balanced"
+    },
+    "benczechmark_summarization": {
+      "task": "benczechmark_summarization",
+      "name": "Summarization",
+      "source_url": "https://huggingface.co/datasets/CZLC/sumeczech_downsampled"
+    },
+    "benczechmark_grammarerrorcorrection": {
+      "task": "benczechmark_grammarerrorcorrection",
+      "name": "Grammar Error Correction",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_gec"
+    },
+    "benczechmark_cs_naturalquestions": {
+      "task": "benczechmark_cs_naturalquestions",
+      "name": "CS Natural Questions",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_naturalquestions"
+    },
+    "benczechmark_cs_sqad32": {
+      "task": "benczechmark_cs_sqad32",
+      "name": "CS SQAD 3.2",
+      "source_url": "https://huggingface.co/datasets/CZLC/SQAD_3.2"
+    },
+    "benczechmark_cs_triviaQA": {
+      "task": "benczechmark_cs_triviaQA",
+      "name": "CS TriviaQA",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_triviaqa"
+    },
+    "benczechmark_csfever_nli": {
+      "task": "benczechmark_csfever_nli",
+      "name": "CSFever NLI",
+      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/csfever_nli"
+    },
+    "benczechmark_ctkfacts_nli": {
+      "task": "benczechmark_ctkfacts_nli",
+      "name": "CTKFacts NLI",
+      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/ctkfacts_nli"
+    },
+    "benczechmark_cs_ner": {
+      "task": "benczechmark_cs_ner",
+      "name": "CS NER",
+      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-named-entity-corpus_2.0"
+    },
+    "benczechmark_hellaswag": {
+      "task": "benczechmark_hellaswag",
+      "name": "HellaSwag",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_hellaswag"
+    },
+    "benczechmark_histcorpus": {
+      "task": "benczechmark_histcorpus",
+      "name": "HistCorpus",
+      "source_url": "https://huggingface.co/datasets/CZLC/benczechmark_histcorpus"
+    },
+    "benczechmark_klokan_qa": {
+      "task": "benczechmark_klokan_qa",
+      "name": "Klokan QA",
+      "source_url": "https://huggingface.co/datasets/hynky/klokan-qa"
+    },
+    "benczechmark_cs_court_decisions_ner": {
+      "task": "benczechmark_cs_court_decisions_ner",
+      "name": "CS Court Decisions NER",
+      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-court-decisions-ner"
+    },
+    "benczechmark_umimeto_qa": {
+      "task": "benczechmark_umimeto_qa",
+      "name": "Umimeto QA",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa"
+    },
+    "benczechmark_cermat_mc": {
+      "task": "benczechmark_cermat_mc",
+      "name": "Cermat MC",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_mc"
+    },
+    "benczechmark_cermat_qa": {
+      "task": "benczechmark_cermat_qa",
+      "name": "Cermat QA",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_tf"
+    }
+  }
+}

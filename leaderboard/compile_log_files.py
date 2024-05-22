@@ -1,81 +1,102 @@
 import argparse
 import copy
+import glob
 import os
 import json
-
 from tqdm import tqdm
 
 from leaderboard import SUPPORTED_METRICS
 
 
-def process_harness_logs(input_folder, output_file, model_name, model_url, model_description):
+def process_harness_logs(input_folders, output_file, model_name, model_url, model_description):
     """
     - Selects best prompt for each task
     - Extract data for that prompt, necessary for targe/mnt/data/ifajcik/micromamba/envs/envs/lmharnest metrics
     """
 
+    def expand_input_folders(input_folders):
+        # Check if input_folders is a wildcard pattern
+        if '*' in input_folders or '?' in input_folders:
+            # Expand the wildcard into a list of matching directories
+            matching_directories = [f for f in glob.glob(input_folders) if os.path.isdir(f)]
+            return matching_directories
+        else:
+            # If it's not a wildcard, return the input as a single-item list if it's a valid directory
+            if os.path.isdir(input_folders):
+                return [input_folders]
+            else:
+                return []
+
+    input_folders = expand_input_folders(input_folders)
+
     per_task_results = {}
-    # read all files in input_folder
-    with open(os.path.join(input_folder, "results.json"), "r") as f:
-        harness_results = json.load(f)
+    metric_per_task = {}
+    predictions = {}
 
-    for name, result in harness_results['results'].items():
-        if result['alias'].startswith('  - prompt-'):
-            # process taskname
-            taskname = name[:-1]
-            if taskname.endswith("_"):
-                taskname = taskname[:-1]
-            # process metric names
-            for k, v in copy.deepcopy(result).items():
-                if "," in k:
-                    name, key = k.split(",")
-                    del result[k]
-                    result[name] = v
-            if taskname not in per_task_results:
-                per_task_results[taskname] = [result]
-            else:
-                per_task_results[taskname].append(result)
+    for input_folder in tqdm(input_folders, desc="Loading files"):
+        # read all files in input_folder
+        with open(os.path.join(input_folder, "results.json"), "r") as f:
+            harness_results = json.load(f)
 
-    metric_per_task = dict()
-    # get best result according to metric priority given in SUPPORTED_METRICS list
-    for taskname, results in per_task_results.items():
-        best_result = None
-        target_metric = None
-        for m in SUPPORTED_METRICS:
-            if m in results[0]:
-                target_metric = m
-                break
-        if target_metric is None:
-            raise ValueError(f"No supported metric found in {taskname}")
-        metric_per_task[taskname] = target_metric
+        current_tasknames = []
+        for name, result in harness_results['results'].items():
+            if result['alias'].strip().startswith('- prompt-'):
+                # process taskname
+                taskname = name[:-1]
+                if taskname.endswith("_"):
+                    taskname = taskname[:-1]
+                # process metric names
+                for k, v in copy.deepcopy(result).items():
+                    if "," in k:
+                        name, key = k.split(",")
+                        del result[k]
+                        result[name] = v
 
-        for result in results:
-            if best_result is None:
-                best_result = result
-            else:
-                if result[target_metric] > best_result[target_metric]:
+                if taskname not in per_task_results:
+                    per_task_results[taskname] = [result]
+                    current_tasknames.append(taskname)
+                else:
+                    per_task_results[taskname].append(result)
+
+        # get best result according to metric priority given in SUPPORTED_METRICS list
+        for taskname, results in per_task_results.items():
+            if not taskname in current_tasknames:
+                continue
+            best_result = None
+            target_metric = None
+            for m in SUPPORTED_METRICS:
+                if m in results[0]:
+                    target_metric = m
+                    break
+            if target_metric is None:
+                raise ValueError(f"No supported metric found in {taskname}")
+            metric_per_task[taskname] = target_metric
+
+            for result in results:
+                if best_result is None:
                     best_result = result
-        per_task_results[taskname] = best_result
+                else:
+                    if result[target_metric] > best_result[target_metric]:
+                        best_result = result
+            per_task_results[taskname] = best_result
 
-    predictions = dict()
-    for file in tqdm(os.listdir(input_folder), desc="Loading files"):
-        if file == "results.json":
-            continue
-        for taskname in per_task_results.keys():
-            if taskname in file:
-                # check this file corresponds to same prompt
-                winning_prompt = per_task_results[taskname]['alias'][-1]
-                # 'pretrained__BUT-FIT__CSMPT7b,dtype__bfloat16,max_length__2048,truncation__True,trust_remote_code__True_propaganda_rusko3.jsonl'
-                current_prompt = file[:-len(".jsonl")][-1]
-                if winning_prompt == current_prompt:
-                    with open(os.path.join(input_folder, file), "r") as f:
-                        # load file contents
-                        predictions[taskname] = json.load(f)
-                        # only keep data necessary for metrics
-                        for prediction in predictions[taskname]:
-                            for key in list(prediction.keys()):
-                                if key not in SUPPORTED_METRICS:
-                                    del prediction[key]
+        for file in os.listdir(input_folder):
+            if file == "results.json":
+                continue
+            for taskname in per_task_results.keys():
+                if taskname in file:
+                    # check this file corresponds to same prompt
+                    winning_prompt = per_task_results[taskname]['alias'][-1]
+                    current_prompt = file[:-len(".jsonl")][-1]
+                    if winning_prompt == current_prompt:
+                        with open(os.path.join(input_folder, file), "r") as f:
+                            # load file contents
+                            predictions[taskname] = json.load(f)
+                            # only keep data necessary for metrics
+                            for prediction in predictions[taskname]:
+                                for key in list(prediction.keys()):
+                                    if key not in SUPPORTED_METRICS:
+                                        del prediction[key]
     aggregated_predictions = dict()
     aggregated_predictions["predictions"] = predictions
     aggregated_predictions["results"] = per_task_results
