@@ -140,20 +140,65 @@
       "name": "CS Court Decisions NER",
       "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-court-decisions-ner"
     },
-    "benczechmark_umimeto_qa": {
-      "task": "benczechmark_umimeto_qa",
-      "name": "Umimeto QA",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa"
+    "benczechmark_umimeto_biology": {
+      "task": "benczechmark_umimeto_biology",
+      "name": "Umimeto.cz - Biology",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-biology"
     },
-    "benczechmark_cermat_mc": {
-      "task": "benczechmark_cermat_mc",
-      "name": "Cermat MC",
+    "benczechmark_umimeto_chemistry": {
+      "task": "benczechmark_umimeto_chemistry",
+      "name": "Umimeto.cz - Chemistry",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-chemistry"
+    },
+    "benczechmark_umimeto_czech": {
+      "task": "benczechmark_umimeto_czech",
+      "name": "Umimeto.cz - Czech",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-czech"
+    },
+    "benczechmark_umimeto_history": {
+      "task": "benczechmark_umimeto_history",
+      "name": "Umimeto.cz - History",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-history"
+    },
+    "benczechmark_umimeto_informatics": {
+      "task": "benczechmark_umimeto_informatics",
+      "name": "Umimeto.cz - Informatics",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-informatics"
+    },
+    "benczechmark_umimeto_math": {
+      "task": "benczechmark_umimeto_math",
+      "name": "Umimeto.cz - Math",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-math"
+    },
+    "benczechmark_umimeto_physics": {
+      "task": "benczechmark_umimeto_physics",
+      "name": "Umimeto.cz - Physics",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-physics"
+    },
+    "benczechmark_cermat_czmath_mc": {
+      "task": "benczechmark_cermat_czmath_mc",
+      "name": "Cermat Czech Math MC",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_mc"
+    },
+    "benczechmark_cermat_czmath_open": {
+      "task": "benczechmark_cermat_czmath_open",
+      "name": "Cermat Czech Math Open",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_open"
+    },
+    "benczechmark_cermat_czech_tf": {
+      "task": "benczechmark_cermat_czech_tf",
+      "name": "Cermat Czech Language TF",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_tf"
+    },
+    "benczechmark_cermat_czech_mc": {
+      "task": "benczechmark_cermat_czech_mc",
+      "name": "Cermat Czech Language MC",
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_mc"
     },
-    "benczechmark_cermat_qa": {
-      "task": "benczechmark_cermat_qa",
-      "name": "Cermat QA",
-      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_tf"
+    "benczechmark_cermat_czech_open": {
+      "task": "benczechmark_cermat_czech_open",
+      "name": "Cermat Czech Language Open",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_open"
     }
   }
 }
