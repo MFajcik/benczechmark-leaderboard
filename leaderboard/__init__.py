@@ -3,5 +3,5 @@ SUPPORTED_METRICS = [
     "exact_match",  # for QA tasks
     "acc",  # for multichoice tasks
     "rouge_raw_r2_mid_f",  # for summarization tasks
-    "ppl",  # for language modeling tasks
+    "word_perplexity",  # for language modeling tasks
 ]

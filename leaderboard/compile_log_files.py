@@ -7,8 +7,73 @@ from tqdm import tqdm
 
 from leaderboard import SUPPORTED_METRICS
 
+with open("leaderboard/metadata.json", "r") as f:
+    METADATA = json.load(f)
 
-def process_harness_logs(input_folders, output_file, model_name, model_url, model_description):
+# TASK MAP
+# from promptname to taskname
+MAP = {
+    'propaganda_argumentace': 'benczechmark_propaganda_argumentace',
+    'propaganda_fabulace': 'benczechmark_propaganda_fabulace',
+    'propaganda_nazor': 'benczechmark_propaganda_nazor',
+    'propaganda_strach': 'benczechmark_propaganda_strach',
+    'propaganda_zamereni': 'benczechmark_propaganda_zamereni',
+    'propaganda_demonizace': 'benczechmark_propaganda_demonizace',
+    'propaganda_lokace': 'benczechmark_propaganda_lokace',
+    'propaganda_relativizace': 'benczechmark_propaganda_relativizace',
+    'propaganda_vina': 'benczechmark_propaganda_vina',
+    'propaganda_zanr': 'benczechmark_propaganda_zanr',
+    'propaganda_emoce': 'benczechmark_propaganda_emoce',
+    'propaganda_nalepkovani': 'benczechmark_propaganda_nalepkovani',
+    'propaganda_rusko': 'benczechmark_propaganda_rusko',
+    'benczechmark_sentiment_mall': 'benczechmark_sentiment_mall',
+    'benczechmark_sentiment_fb': 'benczechmark_sentiment_fb',
+    'benczechmark_sentiment_csfd': 'benczechmark_sentiment_csfd',
+    'benczechmark_summarization': 'benczechmark_summarization',
+    'gec': 'benczechmark_grammarerrorcorrection',
+    'cs_nq_open': 'benczechmark_cs_naturalquestions',
+    'cs_sqad_open': 'benczechmark_cs_sqad32',
+    'cs_triviaqa': 'benczechmark_cs_triviaQA',
+    'csfever': 'benczechmark_csfever_nli',
+    'ctkfacts': 'benczechmark_ctkfacts_nli',
+    'cnec_ner': 'benczechmark_cs_ner',
+    'cdec_ner': 'benczechmark_cs_court_decisions_ner',
+    'klokan_qa': 'benczechmark_klokan_qa',
+    'umimeto_biology': 'benczechmark_umimeto_biology',
+    'umimeto_chemistry': 'benczechmark_umimeto_chemistry',
+    'umimeto_czech': 'benczechmark_umimeto_czech',
+    'umimeto_history': 'benczechmark_umimeto_history',
+    'umimeto_informatics': 'benczechmark_umimeto_informatics',
+    'umimeto_math': 'benczechmark_umimeto_math',
+    'umimeto_physics': 'benczechmark_umimeto_physics',
+    'cermat_czech_open': 'benczechmark_cermat_czech_open',
+    'cermat_czech_mc': 'benczechmark_cermat_czech_mc',
+    'cermat_czech_tf': 'benczechmark_cermat_czech_tf',
+    'cermat_czmath_open': 'benczechmark_cermat_czmath_open',
+    'cermat_czmath_mc': 'benczechmark_cermat_czmath_mc',
+    'benczechmark_histcorpus': "benczechmark_histcorpus",
+    'benczechmark_hellaswag': "benczechmark_hellaswag"
+}
+NO_PROMPT_TASKS = ["benczechmark_histcorpus", "benczechmark_hellaswag"]
+
+
+def resolve_taskname(taskname):
+    if taskname not in MAP:
+        raise ValueError(f"Taskname {taskname} not found.")
+    return MAP[taskname]
+
+
+def rename_keys(d, resolve_taskname):
+    orig_len = len(d)
+    for k, v in list(d.items()):
+        new_key = resolve_taskname(k)
+        d[new_key] = d.pop(k)
+
+    # make sure list length didnt changed
+    assert len(d) == orig_len
+
+
+def process_harness_logs(input_folders, output_file):
     """
     - Selects best prompt for each task
     - Extract data for that prompt, necessary for targe/mnt/data/ifajcik/micromamba/envs/envs/lmharnest metrics
@@ -38,13 +103,19 @@ def process_harness_logs(input_folders, output_file, model_name, model_url, mode
         with open(os.path.join(input_folder, "results.json"), "r") as f:
             harness_results = json.load(f)
 
-        current_tasknames = []
+        current_multipleprompt_tasknames = []
         for name, result in harness_results['results'].items():
+            if name in NO_PROMPT_TASKS:
+                # not prompts
+                taskname = name
+                per_task_results[taskname] = result
+
             if result['alias'].strip().startswith('- prompt-'):
                 # process taskname
                 taskname = name[:-1]
                 if taskname.endswith("_"):
                     taskname = taskname[:-1]
+
                 # process metric names
                 for k, v in copy.deepcopy(result).items():
                     if "," in k:
@@ -54,13 +125,13 @@ def process_harness_logs(input_folders, output_file, model_name, model_url, mode
 
                 if taskname not in per_task_results:
                     per_task_results[taskname] = [result]
-                    current_tasknames.append(taskname)
+                    current_multipleprompt_tasknames.append(taskname)
                 else:
                     per_task_results[taskname].append(result)
 
         # get best result according to metric priority given in SUPPORTED_METRICS list
         for taskname, results in per_task_results.items():
-            if not taskname in current_tasknames:
+            if not taskname in current_multipleprompt_tasknames:
                 continue
             best_result = None
             target_metric = None
@@ -88,7 +159,7 @@ def process_harness_logs(input_folders, output_file, model_name, model_url, mode
                     # check this file corresponds to same prompt
                     winning_prompt = per_task_results[taskname]['alias'][-1]
                     current_prompt = file[:-len(".jsonl")][-1]
-                    if winning_prompt == current_prompt:
+                    if winning_prompt == current_prompt or taskname in NO_PROMPT_TASKS:
                         with open(os.path.join(input_folder, file), "r") as f:
                             # load file contents
                             predictions[taskname] = json.load(f)
@@ -97,16 +168,41 @@ def process_harness_logs(input_folders, output_file, model_name, model_url, mode
                                 for key in list(prediction.keys()):
                                     if key not in SUPPORTED_METRICS:
                                         del prediction[key]
+
+    # TODO: remove this line on new runs
+    # dirct fix
+    # Revert fn to correct one
+    if 'umimeto_biloogy' in predictions:
+        predictions['umimeto_biology'] = predictions.pop('umimeto_biloogy')
+        per_task_results['umimeto_biology'] = per_task_results.pop('umimeto_biloogy')
+    ####
+
+    # rename keys (tasknames) using resolve_tasknames:
+    rename_keys(predictions, resolve_taskname)
+    rename_keys(per_task_results, resolve_taskname)
+
+    # assert keys in predictions and results are the same
+    assert set(predictions.keys()) == set(per_task_results.keys())
+
     aggregated_predictions = dict()
     aggregated_predictions["predictions"] = predictions
     aggregated_predictions["results"] = per_task_results
-    aggregated_predictions["metadata"] = {
-        "model_name": model_name,
-        "model_description": model_description,
-        "model_url": model_url
-    }
+
+    # make sure all tasks are present
+    all_tasks = set(METADATA["tasks"].keys())
+    all_expected_tasks = set(per_task_results.keys())
+    all_missing_tasks = all_tasks - all_expected_tasks
+    all_extra_tasks = all_expected_tasks - all_tasks
+    if len(all_missing_tasks) > 0:
+        EOLN = "\n"
+        raise (f"Missing tasks: {EOLN.join(all_missing_tasks)}")
+    if len(all_extra_tasks) > 0:
+        EOLN = "\n"
+        raise (f"Extra tasks: {EOLN.join(all_extra_tasks)}")
     with open(output_file, "w") as f:
         json.dump(aggregated_predictions, f)
+    print("Success!")
+    print("Output saved to", output_file)
 
 
 def main():
@@ -115,12 +211,9 @@ def main():
     parser.add_argument("-i", "-f", "--input_folder", "--folder",
                         help="Folder with unprocessed results from lm harness.", required=True)
     parser.add_argument("-o", "--output_file", help="File to save processed results.", required=True)
-    parser.add_argument("--name", help="Name of the model.", required=True)
-    parser.add_argument("--url", help="URL of the model.", required=False)
-    parser.add_argument("--description", help="Description of the model.", required=True)
     args = parser.parse_args()
 
-    process_harness_logs(args.input_folder, args.output_file, args.name, args.url, args.description)
+    process_harness_logs(args.input_folder, args.output_file)
 
 
 if __name__ == "__main__":
