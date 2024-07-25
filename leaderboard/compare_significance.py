@@ -51,7 +51,7 @@ def compute_significance_ttest(scores_A, scores_B):
 @njit(parallel=True)
 def compute_significance_bootstrap(scores_A, scores_B):
     n = len(scores_A)
-    R = 1_000_000
+    R = 1_000
     delta_orig = np.mean(scores_A) - np.mean(scores_B)
 
     if delta_orig <= 0:
@@ -102,7 +102,7 @@ def compute_tpr_variates(tp, fn, λ, Nsamples, num_thresholds):
     return tpr_variates_for_each_fpr
 
 
-def get_mc_auc_samples(probs, references, Nsamples=1_000_000):
+def get_mc_auc_samples(probs, references, Nsamples=1_000):
     n_classes = list(range(len(probs[0])))
     fpr = dict()
     thresholds = dict()
@@ -168,7 +168,7 @@ def read_json(file_path):
             data[task] = scores, metric
 
     # make sure all tasks are submitted
-    METADATA_FILE = "metadata.json"
+    METADATA_FILE = "leaderboard/metadata.json"
     with open(METADATA_FILE, "r") as f:
         metadata = json.load(f)
 
@@ -237,6 +237,9 @@ def main():
 
     result = check_significance(args.modelA, args.modelB, args.significance_level)
     print(json.dumps(result, indent=2))
+    with open("significance.json", "w", encoding='utf-8') as f:
+        json.dump(result, f, indent=2)
+
 
 # harness already returns stderr estimate for sampling distribution
 # see https://github.com/EleutherAI/lm-evaluation-harness/blob/6433bd3fe3033d302b22cdcd53af237e9039ef29/lm_eval/api/metrics.py#L213

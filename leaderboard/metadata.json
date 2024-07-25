@@ -120,6 +120,11 @@
       "name": "CS NER",
       "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-named-entity-corpus_2.0"
     },
+    "benczechmark_history_ir": {
+      "task": "benczechmark_history_ir",
+      "name": "Historical Relelvance Grading",
+      "source_url": "https://huggingface.co/datasets/CZLC/history_retrieval"
+    },
     "benczechmark_hellaswag": {
       "task": "benczechmark_hellaswag",
       "name": "HellaSwag",
@@ -199,6 +204,66 @@
       "task": "benczechmark_cermat_czech_open",
       "name": "Cermat Czech Language Open",
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_open"
+    },
+    "benczechmark_agree": {
+      "task": "benczechmark_agree",
+      "name": "Agree",
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_agree"
+    },
+    "benczechmark_belebele": {
+      "task": "benczechmark_belebele",
+      "name": "Belebele",
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_belebele"
+    },
+    "benczechmark_czechnews": {
+      "task": "benczechmark_czechnews",
+      "name": "Czech News",
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_czech_news"
+    },
+    "benczechmark_subjectivity": {
+      "task": "benczechmark_subjectivity",
+      "name": "Subjectivity",
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_subjectivity"
+    },
+    "benczechmark_essay": {
+      "task": "benczechmark_essay",
+      "name": "Essays",
+      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+    },
+    "benczechmark_fiction": {
+      "task": "benczechmark_fiction",
+      "name": "Fiction",
+      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+    },
+    "benczechmark_capek": {
+      "task": "benczechmark_capek",
+      "name": "Čapek",
+      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+    },
+    "benczechmark_correspondence": {
+      "task": "benczechmark_correspondence",
+      "name": "Correspondence",
+      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+    },
+    "benczechmark_havlicek": {
+      "task": "benczechmark_havlicek",
+      "name": "Havlíček",
+      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+    },
+    "benczechmark_speeches": {
+      "task": "benczechmark_speeches",
+      "name": "Speeches",
+      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+    },
+    "benczechmark_spoken": {
+      "task": "benczechmark_spoken",
+      "name": "Spoken",
+      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+    },
+    "benczechmark_snli": {
+      "task": "benczechmark_snli",
+      "name": "SNLI",
+      "source_url": "https://huggingface.co/datasets/CZLC/snli"
     }
   }
 }

@@ -3,6 +3,9 @@ import copy
 import glob
 import os
 import json
+import re
+
+import jsonlines
 from tqdm import tqdm
 
 from leaderboard import SUPPORTED_METRICS
@@ -13,6 +16,11 @@ with open("leaderboard/metadata.json", "r") as f:
 # TASK MAP
 # from promptname to taskname
 MAP = {
+    'benchmark_agree': 'benczechmark_agree',
+    'benchmark_belebele': 'benczechmark_belebele',
+    'benchmark_czechnews': 'benczechmark_czechnews',
+    'benchmark_subjectivity': 'benczechmark_subjectivity',
+    'benczechmark_snli': 'benczechmark_snli',
     'propaganda_argumentace': 'benczechmark_propaganda_argumentace',
     'propaganda_fabulace': 'benczechmark_propaganda_fabulace',
     'propaganda_nazor': 'benczechmark_propaganda_nazor',
@@ -51,10 +59,27 @@ MAP = {
     'cermat_czech_tf': 'benczechmark_cermat_czech_tf',
     'cermat_czmath_open': 'benczechmark_cermat_czmath_open',
     'cermat_czmath_mc': 'benczechmark_cermat_czmath_mc',
+    'history_ir': 'benczechmark_history_ir',
     'benczechmark_histcorpus': "benczechmark_histcorpus",
-    'benczechmark_hellaswag': "benczechmark_hellaswag"
+    'benczechmark_hellaswag': "benczechmark_hellaswag",
+    'benczechmark_essay': 'benczechmark_essay',
+    'benczechmark_fiction': 'benczechmark_fiction',
+    'benczechmark_capek': 'benczechmark_capek',
+    'benczechmark_correspondence': 'benczechmark_correspondence',
+    'benczechmark_havlicek': 'benczechmark_havlicek',
+    'benczechmark_speeches': 'benczechmark_speeches',
+    'benczechmark_spoken': 'benczechmark_spoken'
 }
-NO_PROMPT_TASKS = ["benczechmark_histcorpus", "benczechmark_hellaswag"]
+
+NO_PROMPT_TASKS = ["benczechmark_histcorpus",
+                   "benczechmark_hellaswag",
+                   "benczechmark_essay",
+                   "benczechmark_fiction",
+                   "benczechmark_capek",
+                   "benczechmark_correspondence",
+                   "benczechmark_havlicek",
+                   "benczechmark_speeches",
+                   "benczechmark_spoken"]
 
 
 def resolve_taskname(taskname):
@@ -100,7 +125,11 @@ def process_harness_logs(input_folders, output_file):
 
     for input_folder in tqdm(input_folders, desc="Loading files"):
         # read all files in input_folder
-        with open(os.path.join(input_folder, "results.json"), "r") as f:
+        # consider first folder within this folder
+        input_folder = os.path.join(input_folder, os.listdir(input_folder)[0])
+        # find file which starts with results... prefix in the input_folder
+        result_file = [f for f in os.listdir(input_folder) if f.startswith("results")][0]
+        with open(os.path.join(input_folder, result_file), "r") as f:
             harness_results = json.load(f)
 
         current_multipleprompt_tasknames = []
@@ -108,6 +137,12 @@ def process_harness_logs(input_folders, output_file):
             if name in NO_PROMPT_TASKS:
                 # not prompts
                 taskname = name
+                # process metric names
+                for k, v in copy.deepcopy(result).items():
+                    if "," in k:
+                        name, _ = k.split(",")
+                        del result[k]
+                        result[name] = v
                 per_task_results[taskname] = result
 
             if result['alias'].strip().startswith('- prompt-'):
@@ -152,37 +187,51 @@ def process_harness_logs(input_folders, output_file):
             per_task_results[taskname] = best_result
 
         for file in os.listdir(input_folder):
-            if file == "results.json":
+            if file == result_file:
                 continue
             for taskname in per_task_results.keys():
                 if taskname in file:
+                    print(f"Processing {os.path.join(input_folder, file)} for {taskname}")
                     # check this file corresponds to same prompt
                     winning_prompt = per_task_results[taskname]['alias'][-1]
-                    current_prompt = file[:-len(".jsonl")][-1]
+                    if taskname in NO_PROMPT_TASKS:
+                        current_prompt = "-1"
+                    else:
+                        try:
+                            current_prompt = re.search(rf"{taskname}_(\d+)_", file).group(1)
+                        except AttributeError:
+                            raise ValueError(f"Prompt not found in {file}")
                     if winning_prompt == current_prompt or taskname in NO_PROMPT_TASKS:
-                        with open(os.path.join(input_folder, file), "r") as f:
-                            # load file contents
-                            predictions[taskname] = json.load(f)
-                            # only keep data necessary for metrics
-                            for prediction in predictions[taskname]:
-                                for key in list(prediction.keys()):
-                                    if key not in SUPPORTED_METRICS:
-                                        del prediction[key]
+                        # load file contents
+                        predictions[taskname] = list(jsonlines.open(os.path.join(input_folder, file)))
+                        # only keep data necessary for metrics
+                        for prediction in predictions[taskname]:
+                            for key in list(prediction.keys()):
+                                if key not in SUPPORTED_METRICS:
+                                    del prediction[key]
 
-    # TODO: remove this line on new runs
-    # dirct fix
-    # Revert fn to correct one
-    if 'umimeto_biloogy' in predictions:
-        predictions['umimeto_biology'] = predictions.pop('umimeto_biloogy')
-        per_task_results['umimeto_biology'] = per_task_results.pop('umimeto_biloogy')
-    ####
+    # # TODO: remove this line on new runs
+    # # dirct fix
+    # # Revert fn to correct one
+    # if 'umimeto_biloogy' in predictions:
+    #     predictions['umimeto_biology'] = predictions.pop('umimeto_biloogy')
+    #     per_task_results['umimeto_biology'] = per_task_results.pop('umimeto_biloogy')
+    # ####
 
     # rename keys (tasknames) using resolve_tasknames:
     rename_keys(predictions, resolve_taskname)
     rename_keys(per_task_results, resolve_taskname)
 
     # assert keys in predictions and results are the same
-    assert set(predictions.keys()) == set(per_task_results.keys())
+    # assert set(predictions.keys()) == set(per_task_results.keys())
+    if not set(predictions.keys()) == set(per_task_results.keys()):
+        # print missing keys
+        print("Missing keys in predictions:")
+        print(set(predictions.keys()) - set(per_task_results.keys()))
+        # print extra keys
+        print("Extra keys in predictions:")
+        print(set(per_task_results.keys()) - set(predictions.keys()))
+        raise ValueError("Keys in predictions and results are not the same")
 
     aggregated_predictions = dict()
     aggregated_predictions["predictions"] = predictions
@@ -195,10 +244,11 @@ def process_harness_logs(input_folders, output_file):
     all_extra_tasks = all_expected_tasks - all_tasks
     if len(all_missing_tasks) > 0:
         EOLN = "\n"
-        raise (f"Missing tasks: {EOLN.join(all_missing_tasks)}")
+        # print(f"Missing tasks: {EOLN.join(all_missing_tasks)}")
+        raise Exception(f"Missing tasks: {EOLN.join(all_missing_tasks)}")  # TODO: uncomment
     if len(all_extra_tasks) > 0:
         EOLN = "\n"
-        raise (f"Extra tasks: {EOLN.join(all_extra_tasks)}")
+        raise Exception(f"Extra tasks: {EOLN.join(all_extra_tasks)}")
     with open(output_file, "w") as f:
         json.dump(aggregated_predictions, f)
     print("Success!")
