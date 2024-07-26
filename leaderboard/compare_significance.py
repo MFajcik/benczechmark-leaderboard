@@ -40,8 +40,6 @@ def _get_CMs(i, probabilities, references, thresholds):
 
 def compute_significance_ttest(scores_A, scores_B):
     delta = np.mean(scores_A) - np.mean(scores_B)
-    if delta <= 0:
-        return 1.0, delta
     t, p = ttest_rel(scores_A, scores_B)
     # correct for one-tailed test
     p_value = p / 2
@@ -54,14 +52,41 @@ def compute_significance_bootstrap(scores_A, scores_B):
     R = 1_000
     delta_orig = np.mean(scores_A) - np.mean(scores_B)
 
-    if delta_orig <= 0:
-        return 1.0, delta_orig
     r = 0
     for _ in prange(R):
         samples = np.random.choice(n, n, replace=True)
         temp_A = scores_A[samples]
         temp_B = scores_B[samples]
         delta = np.mean(temp_A) - np.mean(temp_B)
+        if delta > 2 * delta_orig:
+            r += 1
+
+    pval = r / R
+    return pval, delta_orig
+
+
+# @njit(parallel=True)
+def compute_significance_bootstrap_pp(scores_A, scores_B):
+    n = len(scores_A)
+    R = 1_000
+
+    scores_A, words_A = scores_A[:, 0], scores_A[:, 1]
+    scores_B, words_B = scores_B[:, 0], scores_B[:, 1]
+
+    def get_pp(scores, words):
+        return np.exp(-scores.sum() / words.sum())
+
+    # inverted as lower is better
+    delta_orig = get_pp(scores_B, words_B) - get_pp(scores_A, words_A)
+
+    r = 0
+    for _ in range(R):
+        samples = np.random.choice(n, n, replace=True)
+        temp_A = scores_A[samples]
+        temp_words_A = words_A[samples]
+        temp_B = scores_B[samples]
+        temp_words_B = words_B[samples]
+        delta = get_pp(temp_B, temp_words_B) - get_pp(temp_A, temp_words_A)
         if delta > 2 * delta_orig:
             r += 1
 
@@ -102,7 +127,7 @@ def compute_tpr_variates(tp, fn, λ, Nsamples, num_thresholds):
     return tpr_variates_for_each_fpr
 
 
-def get_mc_auc_samples(probs, references, Nsamples=1_000):
+def get_mc_auc_samples(probs, references, Nsamples=1_000_000):
     n_classes = list(range(len(probs[0])))
     fpr = dict()
     thresholds = dict()
@@ -166,6 +191,7 @@ def read_json(file_path):
         else:
             scores = [line[metric] for line in fc["predictions"][task]]
             data[task] = scores, metric
+    data['results'] = fc['results']
 
     # make sure all tasks are submitted
     METADATA_FILE = "leaderboard/metadata.json"
@@ -189,19 +215,36 @@ def process_task(task, dataA, dataB, significance_level):
     assert metricA == metricB
     assert len(dataA[task]) == len(dataB[task])
 
+    A_result = dataA['results'][task][metricA]
+    B_result = dataB['results'][task][metricB]
+
+    delta_measured = A_result - B_result
+    if metricA == "word_perplexity":
+        A_result = -A_result
+        B_result = -B_result
+        delta_measured = -delta_measured
+
+    if A_result < B_result:
+        return task, {
+            "significant": False,
+            "p_value": 1,
+            "delta": delta_measured,
+        }
+
     if metricA == "avg_mcauroc":
         p_value, delta = compute_significance_avg_mcauroc(probsA=dataA[task][0][1], referencesA=dataA[task][0][0],
                                                           probsB=dataB[task][0][1], referencesB=dataB[task][0][0])
     elif metricA in ["acc", "exact_match"]:
+        # t-test is symmetric
         p_value, delta = compute_significance_ttest(scores_A=dataA[task][0], scores_B=dataB[task][0])
-    elif metricA in ["rouge_raw_r2_mid_f", "word_perplexity"]:
+    elif metricA in ["rouge_raw_r2_mid_f"]:
         p_value, delta = compute_significance_bootstrap(scores_A=np.array(dataA[task][0]),
                                                         scores_B=np.array(dataB[task][0]))
+    elif metricA in ["word_perplexity"]:
+        p_value, delta = compute_significance_bootstrap_pp(scores_A=np.array(dataA[task][0]),
+                                                           scores_B=np.array(dataB[task][0]))
     else:
         raise ValueError(f"Unsupported metric {metricA}")
-
-    if delta <= 0:
-        p_value = 1.0
 
     return task, {
         "significant": not (p_value > significance_level),
@@ -218,7 +261,7 @@ def check_significance(fileA, fileB, significance_level):
     tasks = list(dataA.keys())
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = {executor.submit(process_task, task, dataA, dataB, significance_level): task for task in tasks}
+        futures = {executor.submit(process_task, task, dataA, dataB, significance_level): task for task in tasks if task != 'results'}
         _iter = tqdm(concurrent.futures.as_completed(futures), total=len(tasks))
         for future in _iter:
             task, result = future.result()
@@ -233,11 +276,12 @@ def main():
     parser.add_argument("--modelA", help="ModelA JSON file from lm harness.")
     parser.add_argument("--modelB", help="ModelB JSON file from lm harness.")
     parser.add_argument("--significance_level", type=float, default=0.05, help="Significance level (e.g., 0.05)")
+    parser.add_argument("--output", help="Output file for the results.", default="significance.json")
     args = parser.parse_args()
 
     result = check_significance(args.modelA, args.modelB, args.significance_level)
     print(json.dumps(result, indent=2))
-    with open("significance.json", "w", encoding='utf-8') as f:
+    with open(args.output, "w", encoding='utf-8') as f:
         json.dump(result, f, indent=2)
 
 
