@@ -2,268 +2,435 @@
   "tasks": {
     "benczechmark_propaganda_argumentace": {
       "task": "benczechmark_propaganda_argumentace",
-      "name": "P-Argumentace",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_argumentace"
+      "name": "Propaganda – Argumentace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_argumentace",
+      "abbreviation": "P-ARG",
+      "category": "NLI",
+      "short_name": "P-Argumentace"
     },
     "benczechmark_propaganda_fabulace": {
       "task": "benczechmark_propaganda_fabulace",
-      "name": "P-Fabulace",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_fabulace"
+      "name": "Propaganda – Fabulace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_fabulace",
+      "abbreviation": "P-FAB",
+      "category": "NLI",
+      "short_name": "P-Fabulace"
     },
     "benczechmark_propaganda_nazor": {
       "task": "benczechmark_propaganda_nazor",
-      "name": "P-Názor",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nazor"
+      "name": "Propaganda – Názor",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nazor",
+      "abbreviation": "P-NAZOR",
+      "category": "NLI",
+      "short_name": "P-Názor"
     },
     "benczechmark_propaganda_strach": {
       "task": "benczechmark_propaganda_strach",
-      "name": "P-Strach",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_strach"
+      "name": "Propaganda – Strach",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_strach",
+      "abbreviation": "P-STCH",
+      "category": "NLI",
+      "short_name": "P-Strach"
     },
     "benczechmark_propaganda_zamereni": {
       "task": "benczechmark_propaganda_zamereni",
-      "name": "P-Zaměření",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zamereni"
+      "name": "Propaganda – Zaměření",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zamereni",
+      "abbreviation": "P-MER",
+      "category": "NLI",
+      "short_name": "P-Zaměření"
     },
     "benczechmark_propaganda_demonizace": {
       "task": "benczechmark_propaganda_demonizace",
-      "name": "P-Demonizace",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_demonizace"
+      "name": "Propaganda – Démonizace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_demonizace",
+      "abbreviation": "P-DEMON",
+      "category": "NLI",
+      "short_name": "P-Démonizace"
     },
     "benczechmark_propaganda_lokace": {
       "task": "benczechmark_propaganda_lokace",
-      "name": "P-Lokace",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_lokace"
+      "name": "Propaganda – Lokace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_lokace",
+      "abbreviation": "P-LOK",
+      "category": "NLI",
+      "short_name": "P-Lokace"
     },
     "benczechmark_propaganda_relativizace": {
       "task": "benczechmark_propaganda_relativizace",
-      "name": "P-Relativizace",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_relativizace"
+      "name": "Propaganda – Relativizace",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_relativizace",
+      "abbreviation": "P-REL",
+      "category": "NLI",
+      "short_name": "P-Relativizace"
     },
     "benczechmark_propaganda_vina": {
       "task": "benczechmark_propaganda_vina",
-      "name": "P-Vina",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_vina"
+      "name": "Propaganda – Vina",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_vina",
+      "abbreviation": "P-VINA",
+      "category": "NLI",
+      "short_name": "P-Vina"
     },
     "benczechmark_propaganda_zanr": {
       "task": "benczechmark_propaganda_zanr",
-      "name": "P-Žánr",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zanr"
+      "name": "Propaganda – Žánr",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zanr",
+      "abbreviation": "P-ZANR",
+      "category": "NLI",
+      "short_name": "P-Žánr"
     },
     "benczechmark_propaganda_emoce": {
       "task": "benczechmark_propaganda_emoce",
-      "name": "P-Emoce",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_emoce"
+      "name": "Propaganda – Emoce",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_emoce",
+      "abbreviation": "P-EMOCE",
+      "category": "NLI",
+      "short_name": "P-Emoce"
     },
     "benczechmark_propaganda_nalepkovani": {
       "task": "benczechmark_propaganda_nalepkovani",
-      "name": "P-Nalepkování",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nalepkovani"
+      "name": "Propaganda – Nálepkování",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nalepkovani",
+      "abbreviation": "P-LEP",
+      "category": "NLI",
+      "short_name": "P-Nálepkování"
     },
     "benczechmark_propaganda_rusko": {
       "task": "benczechmark_propaganda_rusko",
-      "name": "P-Rusko",
-      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_rusko"
+      "name": "Propaganda – Rusko",
+      "source_url": "https://huggingface.co/datasets/CZLC/propaganda_rusko",
+      "abbreviation": "P-RUS",
+      "category": "NLI",
+      "short_name": "P-Rusko"
     },
     "benczechmark_sentiment_mall": {
       "task": "benczechmark_sentiment_mall",
-      "name": "S-Mall",
-      "source_url": "https://huggingface.co/datasets/CZLC/mall_sentiment_balanced"
+      "name": "CzechSentiment MALL",
+      "source_url": "https://huggingface.co/datasets/CZLC/mall_sentiment_balanced",
+      "abbreviation": "S-MALL",
+      "category": "Sentiment",
+      "short_name": "S-Mall"
     },
     "benczechmark_sentiment_fb": {
       "task": "benczechmark_sentiment_fb",
-      "name": "S-FB",
-      "source_url": "https://huggingface.co/datasets/CZLC/fb_sentiment_balanced"
+      "name": "CzechSentiment FB",
+      "source_url": "https://huggingface.co/datasets/CZLC/fb_sentiment_balanced",
+      "abbreviation": "S-FB",
+      "category": "Sentiment",
+      "short_name": "S-FB"
     },
     "benczechmark_sentiment_csfd": {
       "task": "benczechmark_sentiment_csfd",
-      "name": "S-CSFD",
-      "source_url": "https://huggingface.co/datasets/CZLC/csfd_sentiment_balanced"
+      "name": "CzechSentiment CSFD",
+      "source_url": "https://huggingface.co/datasets/CZLC/csfd_sentiment_balanced",
+      "abbreviation": "S-CSFD",
+      "category": "Sentiment",
+      "short_name": "S-CSFD"
     },
     "benczechmark_summarization": {
       "task": "benczechmark_summarization",
-      "name": "Summarization",
-      "source_url": "https://huggingface.co/datasets/CZLC/sumeczech_downsampled"
+      "name": "SUMECZECH",
+      "source_url": "https://huggingface.co/datasets/CZLC/sumeczech_downsampled",
+      "abbreviation": "SUM",
+      "category": "Summarization",
+      "short_name": "Summarization"
     },
     "benczechmark_grammarerrorcorrection": {
       "task": "benczechmark_grammarerrorcorrection",
-      "name": "Grammar Error Correction",
-      "source_url": "https://huggingface.co/datasets/CZLC/cs_gec"
+      "name": "GrammarErrorCorrection",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_gec",
+      "abbreviation": "GEC",
+      "category": "Syntactical Reasoning",
+      "short_name": "Grammar Error Correction"
     },
     "benczechmark_cs_naturalquestions": {
       "task": "benczechmark_cs_naturalquestions",
-      "name": "CS Natural Questions",
-      "source_url": "https://huggingface.co/datasets/CZLC/cs_naturalquestions"
+      "name": "NaturalQuestions-CZ",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_naturalquestions",
+      "abbreviation": "NQ",
+      "category": "Knowledge",
+      "short_name": "CS Natural Questions"
     },
     "benczechmark_cs_sqad32": {
       "task": "benczechmark_cs_sqad32",
-      "name": "CS SQAD 3.2",
-      "source_url": "https://huggingface.co/datasets/CZLC/SQAD_3.2"
+      "name": "SQAD3.2",
+      "source_url": "https://huggingface.co/datasets/CZLC/SQAD_3.2",
+      "abbreviation": "SQAD32",
+      "category": "Knowledge",
+      "short_name": "CS SQAD 3.2"
     },
     "benczechmark_cs_triviaQA": {
       "task": "benczechmark_cs_triviaQA",
-      "name": "CS TriviaQA",
-      "source_url": "https://huggingface.co/datasets/CZLC/cs_triviaqa"
+      "name": "TriviaQA-CZ",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_triviaqa",
+      "abbreviation": "TQA",
+      "category": "Knowledge",
+      "short_name": "CS TriviaQA"
     },
     "benczechmark_csfever_nli": {
       "task": "benczechmark_csfever_nli",
-      "name": "CSFever NLI",
-      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/csfever_nli"
+      "name": "CSFEVER",
+      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/csfever_nli",
+      "abbreviation": "CFR",
+      "category": "NLI",
+      "short_name": "CSFever NLI"
     },
     "benczechmark_ctkfacts_nli": {
       "task": "benczechmark_ctkfacts_nli",
-      "name": "CTKFacts NLI",
-      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/ctkfacts_nli"
+      "name": "CTKFACTS",
+      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/ctkfacts_nli",
+      "abbreviation": "CTK",
+      "category": "NLI",
+      "short_name": "CTKFacts NLI"
     },
     "benczechmark_cs_ner": {
       "task": "benczechmark_cs_ner",
-      "name": "CS NER",
-      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-named-entity-corpus_2.0"
+      "name": "CZECH NER CORPUS 2.0",
+      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-named-entity-corpus_2.0",
+      "abbreviation": "CZNERC",
+      "category": "NER",
+      "short_name": "CS NER"
     },
     "benczechmark_history_ir": {
       "task": "benczechmark_history_ir",
       "name": "Historical Relelvance Grading",
-      "source_url": "https://huggingface.co/datasets/CZLC/history_retrieval"
+      "source_url": "https://huggingface.co/datasets/CZLC/history_retrieval",
+      "abbreviation": "HIST-IR",
+      "category": "Historical",
+      "short_name": "Czech History IR"
     },
     "benczechmark_hellaswag": {
       "task": "benczechmark_hellaswag",
-      "name": "HellaSwag",
-      "source_url": "https://huggingface.co/datasets/CZLC/cs_hellaswag"
+      "name": "HellaSwag-CZ",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_hellaswag",
+      "abbreviation": "HASG",
+      "category": "Language Modeling",
+      "short_name": "HellaSwag"
     },
     "benczechmark_histcorpus": {
       "task": "benczechmark_histcorpus",
-      "name": "HistCorpus",
-      "source_url": "https://huggingface.co/datasets/CZLC/benczechmark_histcorpus"
+      "name": "Historical Corpus",
+      "source_url": "https://huggingface.co/datasets/CZLC/benczechmark_histcorpus",
+      "abbreviation": "HIST",
+      "category": "Language Modeling",
+      "short_name": "HistCorpus"
     },
     "benczechmark_klokan_qa": {
       "task": "benczechmark_klokan_qa",
       "name": "Klokan QA",
-      "source_url": "https://huggingface.co/datasets/hynky/klokan-qa"
+      "source_url": "https://huggingface.co/datasets/hynky/klokan-qa",
+      "abbreviation": "KQA",
+      "category": "Czech Math Reasoning",
+      "short_name": "Klokan QA"
     },
     "benczechmark_cs_court_decisions_ner": {
       "task": "benczechmark_cs_court_decisions_ner",
-      "name": "CS Court Decisions NER",
-      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-court-decisions-ner"
+      "name": "Czech Court Decisions",
+      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-court-decisions-ner",
+      "abbreviation": "CCDNER",
+      "category": "NER",
+      "short_name": "CS Court Decisions NER"
     },
     "benczechmark_umimeto_biology": {
       "task": "benczechmark_umimeto_biology",
-      "name": "Umimeto.cz - Biology",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-biology"
+      "name": "Umimeto.cz – Biology",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-biology",
+      "abbreviation": "UT-BIO",
+      "category": "General Reasoning",
+      "short_name": "Umimeto.cz – Biology"
     },
     "benczechmark_umimeto_chemistry": {
       "task": "benczechmark_umimeto_chemistry",
-      "name": "Umimeto.cz - Chemistry",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-chemistry"
+      "name": "Umimeto.cz – Chemistry",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-chemistry",
+      "abbreviation": "UT-CHEM",
+      "category": "General Reasoning",
+      "short_name": "Umimeto.cz – Chemistry"
     },
     "benczechmark_umimeto_czech": {
       "task": "benczechmark_umimeto_czech",
-      "name": "Umimeto.cz - Czech",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-czech"
+      "name": "Umimeto.cz – Czech Language",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-czech",
+      "abbreviation": "UT-CZEL",
+      "category": "General Reasoning",
+      "short_name": "Umimeto.cz – Czech"
     },
     "benczechmark_umimeto_history": {
       "task": "benczechmark_umimeto_history",
-      "name": "Umimeto.cz - History",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-history"
+      "name": "Umimeto.cz – History",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-history",
+      "abbreviation": "UT-HIST",
+      "category": "General Reasoning",
+      "short_name": "Umimeto.cz – History"
     },
     "benczechmark_umimeto_informatics": {
       "task": "benczechmark_umimeto_informatics",
-      "name": "Umimeto.cz - Informatics",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-informatics"
+      "name": "Umimeto.cz – Informatics",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-informatics",
+      "abbreviation": "UT-IT",
+      "category": "General Reasoning",
+      "short_name": "Umimeto.cz – Informatics"
     },
     "benczechmark_umimeto_math": {
       "task": "benczechmark_umimeto_math",
-      "name": "Umimeto.cz - Math",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-math"
+      "name": "Umimeto.cz – Math",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-math",
+      "abbreviation": "UT-MATH",
+      "category": "Czech Math Reasoning",
+      "short_name": "Umimeto.cz – Math"
     },
     "benczechmark_umimeto_physics": {
       "task": "benczechmark_umimeto_physics",
-      "name": "Umimeto.cz - Physics",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-physics"
+      "name": "Umimeto.cz – Physics",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-physics",
+      "abbreviation": "UT-PHYS",
+      "category": "General Reasoning",
+      "short_name": "Umimeto.cz – Physics"
     },
     "benczechmark_cermat_czmath_mc": {
       "task": "benczechmark_cermat_czmath_mc",
-      "name": "Cermat Czech Math MC",
-      "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_mc"
+      "name": "CERMAT – Czech Math – MC",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_mc",
+      "abbreviation": "CCM-MC",
+      "category": "Czech Math Reasoning",
+      "short_name": "Cermat Czech Math MC"
     },
     "benczechmark_cermat_czmath_open": {
       "task": "benczechmark_cermat_czmath_open",
-      "name": "Cermat Czech Math Open",
-      "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_open"
+      "name": "CERMAT – Czech Math – OPEN",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_open",
+      "abbreviation": "CCM-OPEN",
+      "category": "Czech Math Reasoning",
+      "short_name": "Cermat Czech Math Open"
     },
     "benczechmark_cermat_czech_tf": {
       "task": "benczechmark_cermat_czech_tf",
-      "name": "Cermat Czech Language TF",
-      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_tf"
+      "name": "CERMAT – Czech Language – TF",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_tf",
+      "abbreviation": "CCL-TF",
+      "category": "General Reasoning",
+      "short_name": "Cermat Czech Language TF"
     },
     "benczechmark_cermat_czech_mc": {
       "task": "benczechmark_cermat_czech_mc",
-      "name": "Cermat Czech Language MC",
-      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_mc"
+      "name": "CERMAT – Czech Language – MC",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_mc",
+      "abbreviation": "CCL-MC",
+      "category": "General Reasoning",
+      "short_name": "Cermat Czech Language MC"
     },
     "benczechmark_cermat_czech_open": {
       "task": "benczechmark_cermat_czech_open",
-      "name": "Cermat Czech Language Open",
-      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_open"
+      "name": "CERMAT – Czech Language – OPEN",
+      "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_open",
+      "abbreviation": "CCL-OPEN",
+      "category": "General Reasoning",
+      "short_name": "Cermat Czech Language Open"
     },
     "benczechmark_agree": {
       "task": "benczechmark_agree",
       "name": "Agree",
-      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_agree"
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_agree",
+      "abbreviation": "Agree",
+      "category": "Syntactical Reasoning",
+      "short_name": "Agree"
     },
     "benczechmark_belebele": {
       "task": "benczechmark_belebele",
       "name": "Belebele",
-      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_belebele"
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_belebele",
+      "abbreviation": "BB",
+      "category": "Knowledge",
+      "short_name": "Belebele"
     },
     "benczechmark_czechnews": {
       "task": "benczechmark_czechnews",
-      "name": "Czech News",
-      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_czech_news"
+      "name": "CZ-NEWS",
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_czech_news",
+      "abbreviation": "CZ-NEWS",
+      "category": "Topic Classification",
+      "short_name": "Czech News"
     },
     "benczechmark_subjectivity": {
       "task": "benczechmark_subjectivity",
       "name": "Subjectivity",
-      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_subjectivity"
+      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_subjectivity",
+      "abbreviation": "SUBJ",
+      "category": "Sentiment",
+      "short_name": "Subjectivity"
     },
     "benczechmark_essay": {
       "task": "benczechmark_essay",
-      "name": "Essays",
-      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+      "name": "Czech National Corpus – Essays",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_skript12",
+      "abbreviation": "CNC-E",
+      "category": "Language Modeling",
+      "short_name": "CNC – Essays"
     },
     "benczechmark_fiction": {
       "task": "benczechmark_fiction",
-      "name": "Fiction",
-      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+      "name": "Czech National Corpus – Fiction",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_fictree",
+      "abbreviation": "CNC-F",
+      "category": "Language Modeling",
+      "short_name": "CNC – Fiction"
     },
     "benczechmark_capek": {
       "task": "benczechmark_capek",
-      "name": "Čapek",
-      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+      "name": "Czech National Corpus – Karel Čapek",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_Capek",
+      "abbreviation": "CNC-CAP",
+      "category": "Language Modeling",
+      "short_name": "CNC – Čapek"
     },
     "benczechmark_correspondence": {
       "task": "benczechmark_correspondence",
-      "name": "Correspondence",
-      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+      "name": "Czech National Corpus – Correspondence",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_KSK",
+      "abbreviation": "CNC-KSK",
+      "category": "Language Modeling",
+      "short_name": "CNC – Correspondence"
     },
     "benczechmark_havlicek": {
       "task": "benczechmark_havlicek",
-      "name": "Havlíček",
-      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+      "name": "Czech National Corpus – Karel Havlíček – Noviny",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_KHavlicek_HistNews",
+      "abbreviation": "CNC-KH",
+      "category": "Language Modeling",
+      "short_name": "CNC – KHavlicek – HistNews"
     },
     "benczechmark_speeches": {
       "task": "benczechmark_speeches",
-      "name": "Speeches",
-      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+      "name": "Czech National Corpus – Speeches",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_PrezPrejavy",
+      "abbreviation": "CNC-SPCH",
+      "category": "Language Modeling",
+      "short_name": "CNC – Speeches"
     },
     "benczechmark_spoken": {
       "task": "benczechmark_spoken",
-      "name": "Spoken",
-      "source_url": "https://huggingface.co/datasets/CZLC/belebele"
+      "name": "Czech National Corpus – Spoken",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_oral_ortofon",
+      "abbreviation": "CNC-SPK",
+      "category": "Language Modeling",
+      "short_name": "CNC – Spoken"
+    },
+    "benczechmark_dialect": {
+      "task": "benczechmark_dialect",
+      "name": "Czech National Corpus – Dialect",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_Dialekt",
+      "abbreviation": "CNC-DIAL",
+      "category": "Language Modeling",
+      "short_name": "CNC – DIALEKT"
     },
     "benczechmark_snli": {
       "task": "benczechmark_snli",
-      "name": "SNLI",
-      "source_url": "https://huggingface.co/datasets/CZLC/snli"
+      "name": "Czech SNLI",
+      "source_url": "https://huggingface.co/datasets/CZLC/snli",
+      "abbreviation": "SNLI",
+      "category": "NLI",
+      "short_name": "Czech SNLI"
     }
   }
 }
