@@ -416,6 +416,14 @@
       "category": "Language Modeling",
       "short_name": "CNC – Spoken"
     },
+    "benczechmark_dialect": {
+      "task": "benczechmark_dialect",
+      "name": "Czech National Corpus – Dialect",
+      "source_url": "https://huggingface.co/datasets/CZLC/CNC_Dialekt",
+      "abbreviation": "CNC-DIAL",
+      "category": "Language Modeling",
+      "short_name": "CNC – DIALEKT"
+    },
     "benczechmark_snli": {
       "task": "benczechmark_snli",
       "name": "Czech SNLI",
