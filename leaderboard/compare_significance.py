@@ -65,7 +65,7 @@ def compute_significance_bootstrap(scores_A, scores_B):
     return pval, delta_orig
 
 
-# @njit(parallel=True)
+@njit(parallel=True)
 def compute_significance_bootstrap_pp(scores_A, scores_B):
     n = len(scores_A)
     R = 1_000
