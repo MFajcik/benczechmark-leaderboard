@@ -68,7 +68,8 @@ MAP = {
     'benczechmark_correspondence': 'benczechmark_correspondence',
     'benczechmark_havlicek': 'benczechmark_havlicek',
     'benczechmark_speeches': 'benczechmark_speeches',
-    'benczechmark_spoken': 'benczechmark_spoken'
+    'benczechmark_spoken': 'benczechmark_spoken',
+    'benczechmark_dialect': 'benczechmark_dialect'
 }
 
 NO_PROMPT_TASKS = ["benczechmark_histcorpus",
@@ -79,7 +80,8 @@ NO_PROMPT_TASKS = ["benczechmark_histcorpus",
                    "benczechmark_correspondence",
                    "benczechmark_havlicek",
                    "benczechmark_speeches",
-                   "benczechmark_spoken"]
+                   "benczechmark_spoken",
+                   "benczechmark_dialect"]
 
 
 def resolve_taskname(taskname):
