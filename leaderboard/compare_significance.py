@@ -80,7 +80,7 @@ def compute_significance_bootstrap_pp(scores_A, scores_B):
     delta_orig = get_pp(scores_B, words_B) - get_pp(scores_A, words_A)
 
     r = 0
-    for _ in range(R):
+    for _ in prange(R):
         samples = np.random.choice(n, n, replace=True)
         temp_A = scores_A[samples]
         temp_words_A = words_A[samples]
