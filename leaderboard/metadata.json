@@ -227,7 +227,7 @@
     "benczechmark_cs_court_decisions_ner": {
       "task": "benczechmark_cs_court_decisions_ner",
       "name": "Czech Court Decisions",
-      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-court-decisions-ner",
+      "source_url": "https://huggingface.co/datasets/CZLC/ner_court_decisions",
       "abbreviation": "CCDNER",
       "category": "NER",
       "short_name": "CS Court Decisions NER"
