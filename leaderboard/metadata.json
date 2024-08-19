@@ -186,15 +186,15 @@
     },
     "benczechmark_cs_ner": {
       "task": "benczechmark_cs_ner",
-      "name": "CZECH NER CORPUS 2.0",
-      "source_url": "https://huggingface.co/datasets/CZLC/fewshot-goes-multilingual/cs_czech-named-entity-corpus_2.0",
-      "abbreviation": "CZNERC",
+      "name": "Czech Named Entity Corpus 2.0\n",
+      "source_url": "https://huggingface.co/datasets/CZLC/cnec_2.0",
+      "abbreviation": "CNEC",
       "category": "NER",
-      "short_name": "CS NER"
+      "short_name": "CNEC2.0"
     },
     "benczechmark_history_ir": {
       "task": "benczechmark_history_ir",
-      "name": "Historical Relelvance Grading",
+      "name": "Historical Relevance Grading",
       "source_url": "https://huggingface.co/datasets/CZLC/history_retrieval",
       "abbreviation": "HIST-IR",
       "category": "Historical",
