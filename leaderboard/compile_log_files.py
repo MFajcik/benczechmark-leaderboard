@@ -1,6 +1,7 @@
 import argparse
 import copy
 import glob
+import hashlib
 import os
 import json
 import re
@@ -8,7 +9,7 @@ import re
 import jsonlines
 from tqdm import tqdm
 
-from leaderboard import SUPPORTED_METRICS
+from leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
 
 with open("leaderboard/metadata.json", "r") as f:
     METADATA = json.load(f)
@@ -180,12 +181,20 @@ def process_harness_logs(input_folders, output_file):
                 raise ValueError(f"No supported metric found in {taskname}")
             metric_per_task[taskname] = target_metric
 
+            all_measured_results = []
             for result in results:
+                all_measured_results.append(result[target_metric])
                 if best_result is None:
                     best_result = result
                 else:
                     if result[target_metric] > best_result[target_metric]:
                         best_result = result
+            # Compute max-centered variance
+            max_value = best_result[target_metric]
+            squared_diffs = [(x*100.0 - max_value*100.0) ** 2 for x in all_measured_results]
+            max_centered_variance = sum(squared_diffs) / (len(squared_diffs) - 1)
+            best_result['max_centered_variance'] = max_centered_variance
+
             per_task_results[taskname] = best_result
 
         for file in os.listdir(input_folder):
@@ -209,16 +218,8 @@ def process_harness_logs(input_folders, output_file):
                         # only keep data necessary for metrics
                         for prediction in predictions[taskname]:
                             for key in list(prediction.keys()):
-                                if key not in SUPPORTED_METRICS:
+                                if key not in SUPPORTED_METRICS + EXTRA_INFO_RELEASE_KEYS:
                                     del prediction[key]
-
-    # # TODO: remove this line on new runs
-    # # dirct fix
-    # # Revert fn to correct one
-    # if 'umimeto_biloogy' in predictions:
-    #     predictions['umimeto_biology'] = predictions.pop('umimeto_biloogy')
-    #     per_task_results['umimeto_biology'] = per_task_results.pop('umimeto_biloogy')
-    # ####
 
     # rename keys (tasknames) using resolve_tasknames:
     rename_keys(predictions, resolve_taskname)
