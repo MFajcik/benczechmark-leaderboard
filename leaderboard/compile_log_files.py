@@ -191,7 +191,7 @@ def process_harness_logs(input_folders, output_file):
                         best_result = result
             # Compute max-centered variance
             max_value = best_result[target_metric]
-            squared_diffs = [(x*100.0 - max_value*100.0) ** 2 for x in all_measured_results]
+            squared_diffs = [(x * 100.0 - max_value * 100.0) ** 2 for x in all_measured_results]
             max_centered_variance = sum(squared_diffs) / (len(squared_diffs) - 1)
             best_result['max_centered_variance'] = max_centered_variance
 
@@ -239,6 +239,27 @@ def process_harness_logs(input_folders, output_file):
     aggregated_predictions = dict()
     aggregated_predictions["predictions"] = predictions
     aggregated_predictions["results"] = per_task_results
+    aggregated_predictions["metadata"] = {
+        'git_hash': harness_results['git_hash'],
+        'transformers_version': harness_results['transformers_version'],
+        'tokenizer_pad_token': harness_results['tokenizer_pad_token'],
+        'tokenizer_eos_token': harness_results['tokenizer_eos_token'],
+        'tokenizer_bos_token': harness_results['tokenizer_bos_token'],
+        'eot_token_id': harness_results['eot_token_id'],
+        'max_length': harness_results['max_length'],
+        'task_hashes': harness_results['task_hashes'],
+        'model_source': harness_results['model_source'],
+        'model_name': harness_results['model_name'],
+        'model_name_sanitized': harness_results['model_name_sanitized'],
+        'system_instruction': harness_results['system_instruction'],
+        'system_instruction_sha': harness_results['system_instruction_sha'],
+        'fewshot_as_multiturn': harness_results['fewshot_as_multiturn'],
+        'chat_template': harness_results['chat_template'],
+        'chat_template_sha': harness_results['chat_template_sha'],
+        'start_time': harness_results['start_time'],
+        'end_time': harness_results['end_time'],
+        'total_evaluation_time_seconds': harness_results['total_evaluation_time_seconds']
+    }
 
     # make sure all tasks are present
     all_tasks = set(METADATA["tasks"].keys())
