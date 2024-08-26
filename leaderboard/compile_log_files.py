@@ -258,7 +258,8 @@ def process_harness_logs(input_folders, output_file):
         'chat_template_sha': harness_results['chat_template_sha'],
         'start_time': harness_results['start_time'],
         'end_time': harness_results['end_time'],
-        'total_evaluation_time_seconds': harness_results['total_evaluation_time_seconds']
+        'total_evaluation_time_seconds': harness_results['total_evaluation_time_seconds'],
+        'n-shot': harness_results['benczechmark_cermat_czech_mc']
     }
 
     # make sure all tasks are present
