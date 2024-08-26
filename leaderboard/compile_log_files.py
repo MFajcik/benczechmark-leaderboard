@@ -198,7 +198,7 @@ def process_harness_logs(input_folders, output_file):
             per_task_results[taskname] = best_result
 
         for file in os.listdir(input_folder):
-            if file == result_file:
+            if file == result_file or not file.startswith("samples") or not file.endswith(".jsonl"):
                 continue
             for taskname in per_task_results.keys():
                 if taskname in file:
