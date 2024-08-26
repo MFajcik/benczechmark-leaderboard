@@ -9,7 +9,7 @@ import re
 import jsonlines
 from tqdm import tqdm
 
-from leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
+from benczechmark_leaderboard.leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
 
 with open("leaderboard/metadata.json", "r") as f:
     METADATA = json.load(f)
@@ -126,6 +126,7 @@ def process_harness_logs(input_folders, output_file):
     metric_per_task = {}
     predictions = {}
 
+    all_harness_results = dict()
     for input_folder in tqdm(input_folders, desc="Loading files"):
         # read all files in input_folder
         # consider first folder within this folder
@@ -134,7 +135,7 @@ def process_harness_logs(input_folders, output_file):
         result_file = [f for f in os.listdir(input_folder) if f.startswith("results")][0]
         with open(os.path.join(input_folder, result_file), "r") as f:
             harness_results = json.load(f)
-
+        all_harness_results[list(harness_results['results'].values())[0]['alias']] = harness_results
         current_multipleprompt_tasknames = []
         for name, result in harness_results['results'].items():
             if name in NO_PROMPT_TASKS:
@@ -256,10 +257,8 @@ def process_harness_logs(input_folders, output_file):
         'fewshot_as_multiturn': harness_results['fewshot_as_multiturn'],
         'chat_template': harness_results['chat_template'],
         'chat_template_sha': harness_results['chat_template_sha'],
-        'start_time': harness_results['start_time'],
-        'end_time': harness_results['end_time'],
-        'total_evaluation_time_seconds': harness_results['total_evaluation_time_seconds'],
-        'n-shot': harness_results['benczechmark_cermat_czech_mc']
+        'total_evaluation_time_seconds': {k:v['total_evaluation_time_seconds'] for k,v in all_harness_results.items()},
+        'n-shot': all_harness_results['CTKFacts NLI']['n-shot']['ctkfacts_0']
     }
 
     # make sure all tasks are present
