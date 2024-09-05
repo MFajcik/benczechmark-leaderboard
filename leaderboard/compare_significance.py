@@ -1,6 +1,7 @@
 import argparse
 import concurrent
 import json
+import random
 from collections import defaultdict
 from typing import Sequence
 
@@ -13,6 +14,10 @@ from numba import njit, prange
 
 from leaderboard import SUPPORTED_METRICS
 
+# Set the random seed
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
 
 def _get_CMs(i, probabilities, references, thresholds):
     confusion_matrices = []
