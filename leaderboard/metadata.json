@@ -6,7 +6,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_argumentace",
       "abbreviation": "P-ARG",
       "category": "NLI",
-      "short_name": "P-Argumentace"
+      "short_name": "P-Argumentace",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_fabulace": {
       "task": "benczechmark_propaganda_fabulace",
@@ -14,7 +15,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_fabulace",
       "abbreviation": "P-FAB",
       "category": "NLI",
-      "short_name": "P-Fabulace"
+      "short_name": "P-Fabulace",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_nazor": {
       "task": "benczechmark_propaganda_nazor",
@@ -22,7 +24,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nazor",
       "abbreviation": "P-NAZOR",
       "category": "NLI",
-      "short_name": "P-Názor"
+      "short_name": "P-Názor",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_strach": {
       "task": "benczechmark_propaganda_strach",
@@ -30,7 +33,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_strach",
       "abbreviation": "P-STCH",
       "category": "NLI",
-      "short_name": "P-Strach"
+      "short_name": "P-Strach",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_zamereni": {
       "task": "benczechmark_propaganda_zamereni",
@@ -38,7 +42,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zamereni",
       "abbreviation": "P-MER",
       "category": "NLI",
-      "short_name": "P-Zaměření"
+      "short_name": "P-Zaměření",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_demonizace": {
       "task": "benczechmark_propaganda_demonizace",
@@ -46,7 +51,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_demonizace",
       "abbreviation": "P-DEMON",
       "category": "NLI",
-      "short_name": "P-Démonizace"
+      "short_name": "P-Démonizace",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_lokace": {
       "task": "benczechmark_propaganda_lokace",
@@ -54,7 +60,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_lokace",
       "abbreviation": "P-LOK",
       "category": "NLI",
-      "short_name": "P-Lokace"
+      "short_name": "P-Lokace",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_relativizace": {
       "task": "benczechmark_propaganda_relativizace",
@@ -62,7 +69,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_relativizace",
       "abbreviation": "P-REL",
       "category": "NLI",
-      "short_name": "P-Relativizace"
+      "short_name": "P-Relativizace",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_vina": {
       "task": "benczechmark_propaganda_vina",
@@ -70,7 +78,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_vina",
       "abbreviation": "P-VINA",
       "category": "NLI",
-      "short_name": "P-Vina"
+      "short_name": "P-Vina",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_zanr": {
       "task": "benczechmark_propaganda_zanr",
@@ -78,7 +87,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_zanr",
       "abbreviation": "P-ZANR",
       "category": "NLI",
-      "short_name": "P-Žánr"
+      "short_name": "P-Žánr",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_emoce": {
       "task": "benczechmark_propaganda_emoce",
@@ -86,7 +96,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_emoce",
       "abbreviation": "P-EMOCE",
       "category": "NLI",
-      "short_name": "P-Emoce"
+      "short_name": "P-Emoce",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_nalepkovani": {
       "task": "benczechmark_propaganda_nalepkovani",
@@ -94,7 +105,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_nalepkovani",
       "abbreviation": "P-LEP",
       "category": "NLI",
-      "short_name": "P-Nálepkování"
+      "short_name": "P-Nálepkování",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_propaganda_rusko": {
       "task": "benczechmark_propaganda_rusko",
@@ -102,7 +114,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/propaganda_rusko",
       "abbreviation": "P-RUS",
       "category": "NLI",
-      "short_name": "P-Rusko"
+      "short_name": "P-Rusko",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_sentiment_mall": {
       "task": "benczechmark_sentiment_mall",
@@ -110,7 +123,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/mall_sentiment_balanced",
       "abbreviation": "S-MALL",
       "category": "Sentiment",
-      "short_name": "S-Mall"
+      "short_name": "S-Mall",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_sentiment_fb": {
       "task": "benczechmark_sentiment_fb",
@@ -118,7 +132,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/fb_sentiment_balanced",
       "abbreviation": "S-FB",
       "category": "Sentiment",
-      "short_name": "S-FB"
+      "short_name": "S-FB",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_sentiment_csfd": {
       "task": "benczechmark_sentiment_csfd",
@@ -126,7 +141,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/csfd_sentiment_balanced",
       "abbreviation": "S-CSFD",
       "category": "Sentiment",
-      "short_name": "S-CSFD"
+      "short_name": "S-CSFD",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_summarization": {
       "task": "benczechmark_summarization",
@@ -134,7 +150,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/sumeczech_downsampled",
       "abbreviation": "SUM",
       "category": "Summarization",
-      "short_name": "Summarization"
+      "short_name": "Summarization",
+      "metric": "rouge_raw_r2_mid_f"
     },
     "benczechmark_grammarerrorcorrection": {
       "task": "benczechmark_grammarerrorcorrection",
@@ -142,7 +159,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cs_gec",
       "abbreviation": "GEC",
       "category": "Syntactical Reasoning",
-      "short_name": "Grammar Error Correction"
+      "short_name": "Grammar Error Correction",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_cs_naturalquestions": {
       "task": "benczechmark_cs_naturalquestions",
@@ -150,7 +168,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cs_naturalquestions",
       "abbreviation": "NQ",
       "category": "Knowledge",
-      "short_name": "CS Natural Questions"
+      "short_name": "CS Natural Questions",
+      "metric": "exact_match"
     },
     "benczechmark_cs_sqad32": {
       "task": "benczechmark_cs_sqad32",
@@ -158,7 +177,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/SQAD_3.2",
       "abbreviation": "SQAD32",
       "category": "Knowledge",
-      "short_name": "CS SQAD 3.2"
+      "short_name": "CS SQAD 3.2",
+      "metric": "exact_match"
     },
     "benczechmark_cs_triviaQA": {
       "task": "benczechmark_cs_triviaQA",
@@ -166,7 +186,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cs_triviaqa",
       "abbreviation": "TQA",
       "category": "Knowledge",
-      "short_name": "CS TriviaQA"
+      "short_name": "CS TriviaQA",
+      "metric": "exact_match"
     },
     "benczechmark_csfever_nli": {
       "task": "benczechmark_csfever_nli",
@@ -174,7 +195,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/csfever_nli",
       "abbreviation": "CFR",
       "category": "NLI",
-      "short_name": "CSFever NLI"
+      "short_name": "CSFever NLI",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_ctkfacts_nli": {
       "task": "benczechmark_ctkfacts_nli",
@@ -182,7 +204,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/ctkfacts_nli",
       "abbreviation": "CTK",
       "category": "NLI",
-      "short_name": "CTKFacts NLI"
+      "short_name": "CTKFacts NLI",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_cs_ner": {
       "task": "benczechmark_cs_ner",
@@ -190,7 +213,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cnec_2.0",
       "abbreviation": "CNEC",
       "category": "NER",
-      "short_name": "CNEC2.0"
+      "short_name": "CNEC2.0",
+      "metric": "exact_match"
     },
     "benczechmark_history_ir": {
       "task": "benczechmark_history_ir",
@@ -198,7 +222,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/history_retrieval",
       "abbreviation": "HIST-IR",
       "category": "Historical",
-      "short_name": "Czech History IR"
+      "short_name": "Czech History IR",
+      "metric": "acc"
     },
     "benczechmark_hellaswag": {
       "task": "benczechmark_hellaswag",
@@ -206,7 +231,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cs_hellaswag",
       "abbreviation": "HASG",
       "category": "Language Modeling",
-      "short_name": "HellaSwag"
+      "short_name": "HellaSwag",
+      "metric": "acc"
     },
     "benczechmark_histcorpus": {
       "task": "benczechmark_histcorpus",
@@ -214,7 +240,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/benczechmark_histcorpus",
       "abbreviation": "HIST",
       "category": "Language Modeling",
-      "short_name": "HistCorpus"
+      "short_name": "HistCorpus",
+      "metric": "word_perplexity"
     },
     "benczechmark_klokan_qa": {
       "task": "benczechmark_klokan_qa",
@@ -222,7 +249,8 @@
       "source_url": "https://huggingface.co/datasets/hynky/klokan-qa",
       "abbreviation": "KQA",
       "category": "Czech Math Reasoning",
-      "short_name": "Klokan QA"
+      "short_name": "Klokan QA",
+      "metric": "acc"
     },
     "benczechmark_cs_court_decisions_ner": {
       "task": "benczechmark_cs_court_decisions_ner",
@@ -230,7 +258,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/ner_court_decisions",
       "abbreviation": "CCDNER",
       "category": "NER",
-      "short_name": "CS Court Decisions NER"
+      "short_name": "CS Court Decisions NER",
+      "metric": "exact_match"
     },
     "benczechmark_umimeto_biology": {
       "task": "benczechmark_umimeto_biology",
@@ -238,7 +267,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-biology",
       "abbreviation": "UT-BIO",
       "category": "General Reasoning",
-      "short_name": "Umimeto.cz – Biology"
+      "short_name": "Umimeto.cz – Biology",
+      "metric": "acc"
     },
     "benczechmark_umimeto_chemistry": {
       "task": "benczechmark_umimeto_chemistry",
@@ -246,7 +276,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-chemistry",
       "abbreviation": "UT-CHEM",
       "category": "General Reasoning",
-      "short_name": "Umimeto.cz – Chemistry"
+      "short_name": "Umimeto.cz – Chemistry",
+      "metric": "acc"
     },
     "benczechmark_umimeto_czech": {
       "task": "benczechmark_umimeto_czech",
@@ -254,7 +285,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-czech",
       "abbreviation": "UT-CZEL",
       "category": "General Reasoning",
-      "short_name": "Umimeto.cz – Czech"
+      "short_name": "Umimeto.cz – Czech",
+      "metric": "acc"
     },
     "benczechmark_umimeto_history": {
       "task": "benczechmark_umimeto_history",
@@ -262,7 +294,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-history",
       "abbreviation": "UT-HIST",
       "category": "General Reasoning",
-      "short_name": "Umimeto.cz – History"
+      "short_name": "Umimeto.cz – History",
+      "metric": "acc"
     },
     "benczechmark_umimeto_informatics": {
       "task": "benczechmark_umimeto_informatics",
@@ -270,7 +303,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-informatics",
       "abbreviation": "UT-IT",
       "category": "General Reasoning",
-      "short_name": "Umimeto.cz – Informatics"
+      "short_name": "Umimeto.cz – Informatics",
+      "metric": "acc"
     },
     "benczechmark_umimeto_math": {
       "task": "benczechmark_umimeto_math",
@@ -278,7 +312,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-math",
       "abbreviation": "UT-MATH",
       "category": "Czech Math Reasoning",
-      "short_name": "Umimeto.cz – Math"
+      "short_name": "Umimeto.cz – Math",
+      "metric": "acc"
     },
     "benczechmark_umimeto_physics": {
       "task": "benczechmark_umimeto_physics",
@@ -286,7 +321,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-physics",
       "abbreviation": "UT-PHYS",
       "category": "General Reasoning",
-      "short_name": "Umimeto.cz – Physics"
+      "short_name": "Umimeto.cz – Physics",
+      "metric": "acc"
     },
     "benczechmark_cermat_czmath_mc": {
       "task": "benczechmark_cermat_czmath_mc",
@@ -294,7 +330,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_mc",
       "abbreviation": "CCM-MC",
       "category": "Czech Math Reasoning",
-      "short_name": "Cermat Czech Math MC"
+      "short_name": "Cermat Czech Math MC",
+      "metric": "acc"
     },
     "benczechmark_cermat_czmath_open": {
       "task": "benczechmark_cermat_czmath_open",
@@ -302,7 +339,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_math_open",
       "abbreviation": "CCM-OPEN",
       "category": "Czech Math Reasoning",
-      "short_name": "Cermat Czech Math Open"
+      "short_name": "Cermat Czech Math Open",
+      "metric": "exact_match"
     },
     "benczechmark_cermat_czech_tf": {
       "task": "benczechmark_cermat_czech_tf",
@@ -310,7 +348,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_tf",
       "abbreviation": "CCL-TF",
       "category": "General Reasoning",
-      "short_name": "Cermat Czech Language TF"
+      "short_name": "Cermat Czech Language TF",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_cermat_czech_mc": {
       "task": "benczechmark_cermat_czech_mc",
@@ -318,7 +357,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_mc",
       "abbreviation": "CCL-MC",
       "category": "General Reasoning",
-      "short_name": "Cermat Czech Language MC"
+      "short_name": "Cermat Czech Language MC",
+      "metric": "acc"
     },
     "benczechmark_cermat_czech_open": {
       "task": "benczechmark_cermat_czech_open",
@@ -326,7 +366,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_open",
       "abbreviation": "CCL-OPEN",
       "category": "General Reasoning",
-      "short_name": "Cermat Czech Language Open"
+      "short_name": "Cermat Czech Language Open",
+      "metric": "exact_match"
     },
     "benczechmark_agree": {
       "task": "benczechmark_agree",
@@ -334,7 +375,8 @@
       "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_agree",
       "abbreviation": "Agree",
       "category": "Syntactical Reasoning",
-      "short_name": "Agree"
+      "short_name": "Agree",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_belebele": {
       "task": "benczechmark_belebele",
@@ -342,7 +384,8 @@
       "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_belebele",
       "abbreviation": "BB",
       "category": "Knowledge",
-      "short_name": "Belebele"
+      "short_name": "Belebele",
+      "metric": "acc"
     },
     "benczechmark_czechnews": {
       "task": "benczechmark_czechnews",
@@ -350,7 +393,8 @@
       "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_czech_news",
       "abbreviation": "CZ-NEWS",
       "category": "Topic Classification",
-      "short_name": "Czech News"
+      "short_name": "Czech News",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_subjectivity": {
       "task": "benczechmark_subjectivity",
@@ -358,7 +402,8 @@
       "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_subjectivity",
       "abbreviation": "SUBJ",
       "category": "Sentiment",
-      "short_name": "Subjectivity"
+      "short_name": "Subjectivity",
+      "metric": "avg_mcauroc"
     },
     "benczechmark_essay": {
       "task": "benczechmark_essay",
@@ -366,7 +411,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_skript12",
       "abbreviation": "CNC-E",
       "category": "Language Modeling",
-      "short_name": "CNC – Essays"
+      "short_name": "CNC – Essays",
+      "metric": "word_perplexity"
     },
     "benczechmark_fiction": {
       "task": "benczechmark_fiction",
@@ -374,7 +420,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_fictree",
       "abbreviation": "CNC-F",
       "category": "Language Modeling",
-      "short_name": "CNC – Fiction"
+      "short_name": "CNC – Fiction",
+      "metric": "word_perplexity"
     },
     "benczechmark_capek": {
       "task": "benczechmark_capek",
@@ -382,7 +429,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_Capek",
       "abbreviation": "CNC-CAP",
       "category": "Language Modeling",
-      "short_name": "CNC – Čapek"
+      "short_name": "CNC – Čapek",
+      "metric": "word_perplexity"
     },
     "benczechmark_correspondence": {
       "task": "benczechmark_correspondence",
@@ -390,7 +438,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_KSK",
       "abbreviation": "CNC-KSK",
       "category": "Language Modeling",
-      "short_name": "CNC – Correspondence"
+      "short_name": "CNC – Correspondence",
+      "metric": "word_perplexity"
     },
     "benczechmark_havlicek": {
       "task": "benczechmark_havlicek",
@@ -398,7 +447,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_KHavlicek_HistNews",
       "abbreviation": "CNC-KH",
       "category": "Language Modeling",
-      "short_name": "CNC – KHavlicek – HistNews"
+      "short_name": "CNC – KHavlicek – HistNews",
+      "metric": "word_perplexity"
     },
     "benczechmark_speeches": {
       "task": "benczechmark_speeches",
@@ -406,7 +456,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_PrezPrejavy",
       "abbreviation": "CNC-SPCH",
       "category": "Language Modeling",
-      "short_name": "CNC – Speeches"
+      "short_name": "CNC – Speeches",
+      "metric": "word_perplexity"
     },
     "benczechmark_spoken": {
       "task": "benczechmark_spoken",
@@ -414,7 +465,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_oral_ortofon",
       "abbreviation": "CNC-SPK",
       "category": "Language Modeling",
-      "short_name": "CNC – Spoken"
+      "short_name": "CNC – Spoken",
+      "metric": "word_perplexity"
     },
     "benczechmark_dialect": {
       "task": "benczechmark_dialect",
@@ -422,7 +474,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/CNC_Dialekt",
       "abbreviation": "CNC-DIAL",
       "category": "Language Modeling",
-      "short_name": "CNC – DIALEKT"
+      "short_name": "CNC – DIALEKT",
+      "metric": "word_perplexity"
     },
     "benczechmark_snli": {
       "task": "benczechmark_snli",
@@ -430,7 +483,8 @@
       "source_url": "https://huggingface.co/datasets/CZLC/snli",
       "abbreviation": "SNLI",
       "category": "NLI",
-      "short_name": "Czech SNLI"
+      "short_name": "Czech SNLI",
+      "metric": "avg_mcauroc"
     }
   }
 }
