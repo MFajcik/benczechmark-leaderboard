@@ -1,15 +1,13 @@
 import argparse
 import copy
 import glob
-import hashlib
-import os
 import json
+import os
 import re
 
 import jsonlines
+from leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
 from tqdm import tqdm
-
-from benczechmark_leaderboard.leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
 
 with open("leaderboard/metadata.json", "r") as f:
     METADATA = json.load(f)
@@ -132,7 +130,7 @@ def process_harness_logs(input_folders, output_file):
         # consider first folder within this folder
         input_folder = os.path.join(input_folder, os.listdir(input_folder)[0])
         # find file which starts with results... prefix in the input_folder
-        result_file = [f for f in os.listdir(input_folder) if f.startswith("results")][0]
+        result_file = [f for f in os.listdir(input_folder) if f.startswith("results") and f.endswith("json")][0]
         with open(os.path.join(input_folder, result_file), "r") as f:
             harness_results = json.load(f)
         all_harness_results[list(harness_results['results'].values())[0]['alias']] = harness_results
@@ -173,18 +171,18 @@ def process_harness_logs(input_folders, output_file):
             if not taskname in current_multipleprompt_tasknames:
                 continue
             best_result = None
-            target_metric = None
-            for m in SUPPORTED_METRICS:
-                if m in results[0]:
-                    target_metric = m
-                    break
+            target_metric = METADATA['tasks'][MAP[taskname]]['metric']
             if target_metric is None:
                 raise ValueError(f"No supported metric found in {taskname}")
             metric_per_task[taskname] = target_metric
 
             all_measured_results = []
             for result in results:
-                all_measured_results.append(result[target_metric])
+                try:
+                    all_measured_results.append(result[target_metric])
+                except KeyError as k:
+                    raise ValueError(f"{target_metric} is not present in the results of {MAP[taskname]}")
+
                 if best_result is None:
                     best_result = result
                 else:
@@ -257,7 +255,8 @@ def process_harness_logs(input_folders, output_file):
         'fewshot_as_multiturn': harness_results['fewshot_as_multiturn'],
         'chat_template': harness_results['chat_template'],
         'chat_template_sha': harness_results['chat_template_sha'],
-        'total_evaluation_time_seconds': {k:v['total_evaluation_time_seconds'] for k,v in all_harness_results.items()},
+        'total_evaluation_time_seconds': {k: v['total_evaluation_time_seconds'] for k, v in
+                                          all_harness_results.items()},
         'n-shot': all_harness_results['CTKFacts NLI']['n-shot']['ctkfacts_0']
     }
 
