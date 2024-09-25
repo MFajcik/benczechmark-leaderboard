@@ -99,7 +99,7 @@ def rename_keys(d, resolve_taskname):
     assert len(d) == orig_len
 
 
-def process_harness_logs(input_folders, output_file):
+def process_harness_logs(input_folders_pattern, output_file):
     """
     - Selects best prompt for each task
     - Extract data for that prompt, necessary for targe/mnt/data/ifajcik/micromamba/envs/envs/lmharnest metrics
@@ -118,7 +118,10 @@ def process_harness_logs(input_folders, output_file):
             else:
                 return []
 
-    input_folders = expand_input_folders(input_folders)
+    input_folders = expand_input_folders(input_folders_pattern)
+
+    if not input_folders:
+        raise ValueError(f"No folders found at {input_folders_pattern}")
 
     per_task_results = {}
     metric_per_task = {}
@@ -180,8 +183,14 @@ def process_harness_logs(input_folders, output_file):
             for result in results:
                 try:
                     all_measured_results.append(result[target_metric])
-                except KeyError as k:
-                    raise ValueError(f"{target_metric} is not present in the results of {MAP[taskname]}")
+                except KeyError:
+                    # Recently,  rouge version wo bootstrap was added. Fixing compatibility for both.
+                    if target_metric == "rouge_raw_r2_mid_f":
+                        target_metric += "_without_bootstrap"
+                    try:
+                        all_measured_results.append(result[target_metric])
+                    except KeyError:
+                        raise ValueError(f"{target_metric} is not present in the results of {MAP[taskname]}")
 
                 if best_result is None:
                     best_result = result
