@@ -19,6 +19,7 @@ SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
+
 def _get_CMs(i, probabilities, references, thresholds):
     confusion_matrices = []
     for threshold in thresholds[i]:
@@ -217,6 +218,20 @@ def read_json(file_path):
 def process_task(task, dataA, dataB, significance_level):
     metricA = dataA[task][1]
     metricB = dataB[task][1]
+
+    # hotfix for rouge_raw naming,
+    # TODO: MF - to be refactored, after deprecating _without_bootstrap suffix
+    def hotfix_metric_name(m, d):
+        if m == 'rouge_raw_r2_mid_f_without_bootstrap':
+            newm = "rouge_raw_r2_mid_f"
+            d['results'][task][newm] = d['results'][task][m]
+            m = newm
+        return m
+
+    metricA = hotfix_metric_name(metricA, dataA)
+    metricB = hotfix_metric_name(metricB, dataB)
+    ##
+
     assert metricA == metricB
     assert len(dataA[task]) == len(dataB[task])
 
@@ -266,7 +281,8 @@ def check_significance(fileA, fileB, significance_level):
     tasks = list(dataA.keys())
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = {executor.submit(process_task, task, dataA, dataB, significance_level): task for task in tasks if task != 'results'}
+        futures = {executor.submit(process_task, task, dataA, dataB, significance_level): task for task in tasks if
+                   task != 'results'}
         _iter = tqdm(concurrent.futures.as_completed(futures), total=len(tasks))
         for future in _iter:
             task, result = future.result()
