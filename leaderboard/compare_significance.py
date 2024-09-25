@@ -178,15 +178,15 @@ def read_json(file_path):
     data = defaultdict(list)
     with open(file_path, "r") as f:
         fc = json.load(f)
+
+    # make sure all tasks are submitted
+    METADATA_FILE = "leaderboard/metadata.json"
+    with open(METADATA_FILE, "r") as f:
+        metadata = json.load(f)
+
     for task, results in fc["predictions"].items():
         # determine the metric
-        metric = None
-        for key in SUPPORTED_METRICS:
-            if key in results[0]:
-                metric = key
-                break
-        if metric is None:
-            raise ValueError(f"Unsupported metric in {file_path}")
+        metric = metadata['tasks'][task]['metric']
 
         if metric == "avg_mcauroc":
             local_data = [line[metric] for line in fc["predictions"][task]]
@@ -195,14 +195,17 @@ def read_json(file_path):
             probs = unzipped_list[1]
             data[task] = (golds, probs), metric
         else:
+            # hotfix for rouge_raw naming,
+            # TODO: MF - to be refactored, after deprecating _without_bootstrap suffix
+            if metric not in fc["predictions"][task][0] and metric=='rouge_raw_r2_mid_f':
+                metric='rouge_raw_r2_mid_f_without_bootstrap'
+            ##
             scores = [line[metric] for line in fc["predictions"][task]]
             data[task] = scores, metric
+
     data['results'] = fc['results']
 
-    # make sure all tasks are submitted
-    METADATA_FILE = "leaderboard/metadata.json"
-    with open(METADATA_FILE, "r") as f:
-        metadata = json.load(f)
+
 
     all_tasks = list(metadata["tasks"].keys())
     all_missing_tasks = []
