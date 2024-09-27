@@ -192,7 +192,7 @@
     "benczechmark_csfever_nli": {
       "task": "benczechmark_csfever_nli",
       "name": "CSFEVER",
-      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/csfever_nli",
+      "source_url": "https://huggingface.co/datasets/ctu-aic/csfever_nli",
       "abbreviation": "CFR",
       "category": "NLI",
       "short_name": "CSFever NLI",
@@ -201,7 +201,7 @@
     "benczechmark_ctkfacts_nli": {
       "task": "benczechmark_ctkfacts_nli",
       "name": "CTKFACTS",
-      "source_url": "https://huggingface.co/datasets/CZLC/ctu-aic/ctkfacts_nli",
+      "source_url": "https://huggingface.co/datasets/ctu-aic/ctkfacts_nli",
       "abbreviation": "CTK",
       "category": "NLI",
       "short_name": "CTKFacts NLI",
@@ -480,7 +480,7 @@
     "benczechmark_snli": {
       "task": "benczechmark_snli",
       "name": "Czech SNLI",
-      "source_url": "https://huggingface.co/datasets/CZLC/snli",
+      "source_url": "https://huggingface.co/datasets/CZLC/cs_snli",
       "abbreviation": "SNLI",
       "category": "NLI",
       "short_name": "Czech SNLI",
