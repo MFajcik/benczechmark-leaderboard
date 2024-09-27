@@ -144,15 +144,6 @@
       "short_name": "S-CSFD",
       "metric": "avg_mcauroc"
     },
-    "benczechmark_summarization": {
-      "task": "benczechmark_summarization",
-      "name": "SUMECZECH",
-      "source_url": "https://huggingface.co/datasets/CZLC/sumeczech_downsampled",
-      "abbreviation": "SUM",
-      "category": "Summarization",
-      "short_name": "Summarization",
-      "metric": "rouge_raw_r2_mid_f"
-    },
     "benczechmark_grammarerrorcorrection": {
       "task": "benczechmark_grammarerrorcorrection",
       "name": "GrammarErrorCorrection",
@@ -387,15 +378,6 @@
       "short_name": "Belebele",
       "metric": "acc"
     },
-    "benczechmark_czechnews": {
-      "task": "benczechmark_czechnews",
-      "name": "CZ-NEWS",
-      "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_czech_news",
-      "abbreviation": "CZ-NEWS",
-      "category": "Topic Classification",
-      "short_name": "Czech News",
-      "metric": "avg_mcauroc"
-    },
     "benczechmark_subjectivity": {
       "task": "benczechmark_subjectivity",
       "name": "Subjectivity",
@@ -423,15 +405,6 @@
       "short_name": "CNC – Fiction",
       "metric": "word_perplexity"
     },
-    "benczechmark_capek": {
-      "task": "benczechmark_capek",
-      "name": "Czech National Corpus – Karel Čapek",
-      "source_url": "https://huggingface.co/datasets/CZLC/CNC_Capek",
-      "abbreviation": "CNC-CAP",
-      "category": "Language Modeling",
-      "short_name": "CNC – Čapek",
-      "metric": "word_perplexity"
-    },
     "benczechmark_correspondence": {
       "task": "benczechmark_correspondence",
       "name": "Czech National Corpus – Correspondence",
@@ -448,15 +421,6 @@
       "abbreviation": "CNC-KH",
       "category": "Language Modeling",
       "short_name": "CNC – KHavlicek – HistNews",
-      "metric": "word_perplexity"
-    },
-    "benczechmark_speeches": {
-      "task": "benczechmark_speeches",
-      "name": "Czech National Corpus – Speeches",
-      "source_url": "https://huggingface.co/datasets/CZLC/CNC_PrezPrejavy",
-      "abbreviation": "CNC-SPCH",
-      "category": "Language Modeling",
-      "short_name": "CNC – Speeches",
       "metric": "word_perplexity"
     },
     "benczechmark_spoken": {
