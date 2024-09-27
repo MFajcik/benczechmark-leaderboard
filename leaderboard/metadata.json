@@ -264,7 +264,7 @@
     "benczechmark_umimeto_biology": {
       "task": "benczechmark_umimeto_biology",
       "name": "Umimeto.cz – Biology",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-biology",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/biology",
       "abbreviation": "UT-BIO",
       "category": "General Reasoning",
       "short_name": "Umimeto.cz – Biology",
@@ -273,7 +273,7 @@
     "benczechmark_umimeto_chemistry": {
       "task": "benczechmark_umimeto_chemistry",
       "name": "Umimeto.cz – Chemistry",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-chemistry",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/chemistry",
       "abbreviation": "UT-CHEM",
       "category": "General Reasoning",
       "short_name": "Umimeto.cz – Chemistry",
@@ -282,7 +282,7 @@
     "benczechmark_umimeto_czech": {
       "task": "benczechmark_umimeto_czech",
       "name": "Umimeto.cz – Czech Language",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-czech",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/czech",
       "abbreviation": "UT-CZEL",
       "category": "General Reasoning",
       "short_name": "Umimeto.cz – Czech",
@@ -291,7 +291,7 @@
     "benczechmark_umimeto_history": {
       "task": "benczechmark_umimeto_history",
       "name": "Umimeto.cz – History",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-history",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/history",
       "abbreviation": "UT-HIST",
       "category": "General Reasoning",
       "short_name": "Umimeto.cz – History",
@@ -300,7 +300,7 @@
     "benczechmark_umimeto_informatics": {
       "task": "benczechmark_umimeto_informatics",
       "name": "Umimeto.cz – Informatics",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-informatics",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/informatics",
       "abbreviation": "UT-IT",
       "category": "General Reasoning",
       "short_name": "Umimeto.cz – Informatics",
@@ -309,7 +309,7 @@
     "benczechmark_umimeto_math": {
       "task": "benczechmark_umimeto_math",
       "name": "Umimeto.cz – Math",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-math",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/math",
       "abbreviation": "UT-MATH",
       "category": "Czech Math Reasoning",
       "short_name": "Umimeto.cz – Math",
@@ -318,7 +318,7 @@
     "benczechmark_umimeto_physics": {
       "task": "benczechmark_umimeto_physics",
       "name": "Umimeto.cz – Physics",
-      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-physics",
+      "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/physics",
       "abbreviation": "UT-PHYS",
       "category": "General Reasoning",
       "short_name": "Umimeto.cz – Physics",
