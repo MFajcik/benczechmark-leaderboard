@@ -149,7 +149,7 @@
       "name": "GrammarErrorCorrection",
       "source_url": "https://huggingface.co/datasets/CZLC/cs_gec",
       "abbreviation": "GEC",
-      "category": "Syntactical Reasoning",
+      "category": "Czech Language Understanding",
       "short_name": "Grammar Error Correction",
       "metric": "avg_mcauroc"
     },
@@ -167,7 +167,7 @@
       "name": "SQAD3.2",
       "source_url": "https://huggingface.co/datasets/CZLC/SQAD_3.2",
       "abbreviation": "SQAD32",
-      "category": "Knowledge",
+      "category": "Reading Comprehension",
       "short_name": "CS SQAD 3.2",
       "metric": "exact_match"
     },
@@ -257,7 +257,7 @@
       "name": "Umimeto.cz – Biology",
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/biology",
       "abbreviation": "UT-BIO",
-      "category": "General Reasoning",
+      "category": "Factual Knowledge",
       "short_name": "Umimeto.cz – Biology",
       "metric": "acc"
     },
@@ -266,7 +266,7 @@
       "name": "Umimeto.cz – Chemistry",
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/chemistry",
       "abbreviation": "UT-CHEM",
-      "category": "General Reasoning",
+      "category": "Factual Knowledge",
       "short_name": "Umimeto.cz – Chemistry",
       "metric": "acc"
     },
@@ -275,7 +275,7 @@
       "name": "Umimeto.cz – Czech Language",
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/czech",
       "abbreviation": "UT-CZEL",
-      "category": "General Reasoning",
+      "category": "Czech Language Understanding",
       "short_name": "Umimeto.cz – Czech",
       "metric": "acc"
     },
@@ -284,7 +284,7 @@
       "name": "Umimeto.cz – History",
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/history",
       "abbreviation": "UT-HIST",
-      "category": "General Reasoning",
+      "category": "Factual Knowledge",
       "short_name": "Umimeto.cz – History",
       "metric": "acc"
     },
@@ -293,7 +293,7 @@
       "name": "Umimeto.cz – Informatics",
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/informatics",
       "abbreviation": "UT-IT",
-      "category": "General Reasoning",
+      "category": "Factual Knowledge",
       "short_name": "Umimeto.cz – Informatics",
       "metric": "acc"
     },
@@ -311,7 +311,7 @@
       "name": "Umimeto.cz – Physics",
       "source_url": "https://huggingface.co/datasets/CZLC/umimeto-qa/viewer/physics",
       "abbreviation": "UT-PHYS",
-      "category": "General Reasoning",
+      "category": "Factual Knowledge",
       "short_name": "Umimeto.cz – Physics",
       "metric": "acc"
     },
@@ -338,7 +338,7 @@
       "name": "CERMAT – Czech Language – TF",
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_tf",
       "abbreviation": "CCL-TF",
-      "category": "General Reasoning",
+      "category": "Czech Language Understanding",
       "short_name": "Cermat Czech Language TF",
       "metric": "avg_mcauroc"
     },
@@ -347,7 +347,7 @@
       "name": "CERMAT – Czech Language – MC",
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_mc",
       "abbreviation": "CCL-MC",
-      "category": "General Reasoning",
+      "category": "Czech Language Understanding",
       "short_name": "Cermat Czech Language MC",
       "metric": "acc"
     },
@@ -356,7 +356,7 @@
       "name": "CERMAT – Czech Language – OPEN",
       "source_url": "https://huggingface.co/datasets/CZLC/cermat_czech_open",
       "abbreviation": "CCL-OPEN",
-      "category": "General Reasoning",
+      "category": "Czech Language Understanding",
       "short_name": "Cermat Czech Language Open",
       "metric": "exact_match"
     },
@@ -365,7 +365,7 @@
       "name": "Agree",
       "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_agree",
       "abbreviation": "Agree",
-      "category": "Syntactical Reasoning",
+      "category": "Czech Language Understanding",
       "short_name": "Agree",
       "metric": "avg_mcauroc"
     },
@@ -374,7 +374,7 @@
       "name": "Belebele",
       "source_url": "https://huggingface.co/datasets/davidadamczyk/czechbench_belebele",
       "abbreviation": "BB",
-      "category": "Knowledge",
+      "category": "Reading Comprehension",
       "short_name": "Belebele",
       "metric": "acc"
     },
