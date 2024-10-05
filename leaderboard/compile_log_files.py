@@ -4,6 +4,7 @@ import glob
 import json
 import os
 import re
+import sys
 
 import jsonlines
 from leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
@@ -82,6 +83,14 @@ NO_PROMPT_TASKS = ["benczechmark_histcorpus",
                    "benczechmark_spoken",
                    "benczechmark_dialect"]
 
+# TODO: Remove deprecated warning in 1.0.0
+DEPRECATED_TASKS = [
+    "benczechmark_speeches",
+    "benczechmark_capek",
+    "benchmark_czechnews",
+    "benczechmark_summarization"
+]
+
 
 def resolve_taskname(taskname):
     if taskname not in MAP:
@@ -97,6 +106,10 @@ def rename_keys(d, resolve_taskname):
 
     # make sure list length didnt changed
     assert len(d) == orig_len
+
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 
 def process_harness_logs(input_folders_pattern, output_file):
@@ -142,6 +155,11 @@ def process_harness_logs(input_folders_pattern, output_file):
             if name in NO_PROMPT_TASKS:
                 # not prompts
                 taskname = name
+
+                if taskname in DEPRECATED_TASKS:
+                    eprint(f"Task {taskname} is deprecated. Skipping...")
+                    continue
+
                 # process metric names
                 for k, v in copy.deepcopy(result).items():
                     if "," in k:
@@ -155,6 +173,10 @@ def process_harness_logs(input_folders_pattern, output_file):
                 taskname = name[:-1]
                 if taskname.endswith("_"):
                     taskname = taskname[:-1]
+
+                if taskname in DEPRECATED_TASKS:
+                    eprint(f"Task {taskname} is deprecated. Skipping...")
+                    continue
 
                 # process metric names
                 for k, v in copy.deepcopy(result).items():
@@ -174,7 +196,7 @@ def process_harness_logs(input_folders_pattern, output_file):
             if not taskname in current_multipleprompt_tasknames:
                 continue
             best_result = None
-            target_metric = METADATA['tasks'][MAP[taskname]]['metric']
+            target_metric = METADATA['tasks'][resolve_taskname(taskname)]['metric']
             if target_metric is None:
                 raise ValueError(f"No supported metric found in {taskname}")
             metric_per_task[taskname] = target_metric
@@ -190,7 +212,8 @@ def process_harness_logs(input_folders_pattern, output_file):
                     try:
                         all_measured_results.append(result[target_metric])
                     except KeyError:
-                        raise ValueError(f"{target_metric} is not present in the results of {MAP[taskname]}")
+                        raise ValueError(
+                            f"{target_metric} is not present in the results of {resolve_taskname(taskname)}")
 
                 if best_result is None:
                     best_result = result
