@@ -7,11 +7,8 @@ import re
 import sys
 
 import jsonlines
-from leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
+from . import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
 from tqdm import tqdm
-
-with open("leaderboard/metadata.json", "r") as f:
-    METADATA = json.load(f)
 
 # TASK MAP
 # from promptname to taskname
@@ -112,11 +109,14 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 
-def process_harness_logs(input_folders_pattern, output_file):
+def process_harness_logs(input_folders_pattern, output_file, metadata_file):
     """
     - Selects best prompt for each task
     - Extract data for that prompt, necessary for targe/mnt/data/ifajcik/micromamba/envs/envs/lmharnest metrics
     """
+
+    with open(metadata_file, "r") as f:
+        METADATA = json.load(f)
 
     def expand_input_folders(input_folders):
         # Check if input_folders is a wildcard pattern
@@ -127,7 +127,7 @@ def process_harness_logs(input_folders_pattern, output_file):
         else:
             # If it's not a wildcard, return the input as a single-item list if it's a valid directory
             if os.path.isdir(input_folders):
-                return [input_folders]
+                return [os.path.join(input_folders,d) for d in os.listdir(input_folders)]
             else:
                 return []
 
@@ -311,14 +311,30 @@ def process_harness_logs(input_folders_pattern, output_file):
 
 
 def main():
+    METADATA_DEFAULTDIR = "leaderboard/metadata.json"
+
     parser = argparse.ArgumentParser(
         description="Process outputs of lm harness into minimum compatible format necessary for leaderboard submission.")
-    parser.add_argument("-i", "-f", "--input_folder", "--folder",
-                        help="Folder with unprocessed results from lm harness.", required=True)
-    parser.add_argument("-o", "--output_file", help="File to save processed results.", required=True)
+    parser.add_argument(
+        "-i", "-f", "--input_folder", "--folder",
+        help="Folder with unprocessed results from lm harness.",
+        required=True
+    )
+
+    parser.add_argument(
+        "-o", "--output_file",
+        help="File to save processed results.",
+        required=True
+    )
+
+    parser.add_argument(
+        "-m", "--metadata_file",
+        help=f"Path to the metadata file. Default is {METADATA_DEFAULTDIR}.",
+        default=METADATA_DEFAULTDIR
+    )
     args = parser.parse_args()
 
-    process_harness_logs(args.input_folder, args.output_file)
+    process_harness_logs(args.input_folder, args.output_file, args.metadata_file)
 
 
 if __name__ == "__main__":
