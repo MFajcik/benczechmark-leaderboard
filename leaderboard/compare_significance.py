@@ -19,6 +19,7 @@ SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
+
 def _get_CMs(i, probabilities, references, thresholds):
     confusion_matrices = []
     for threshold in thresholds[i]:
@@ -177,15 +178,23 @@ def read_json(file_path):
     data = defaultdict(list)
     with open(file_path, "r") as f:
         fc = json.load(f)
+
+    # make sure all tasks are submitted
+    METADATA_FILE = "leaderboard/metadata.json"
+    with open(METADATA_FILE, "r") as f:
+        metadata = json.load(f)
+
     for task, results in fc["predictions"].items():
         # determine the metric
-        metric = None
-        for key in SUPPORTED_METRICS:
-            if key in results[0]:
-                metric = key
-                break
-        if metric is None:
-            raise ValueError(f"Unsupported metric in {file_path}")
+        metric = metadata['tasks'][task]['metric']
+
+        # hotfix for rouge_raw naming,
+        # TODO: MF - to be refactored, after deprecating _without_bootstrap suffix
+        if metric not in fc["predictions"][task][0] and metric == 'rouge_raw_r2_mid_f':
+            metric = 'rouge_raw_r2_mid_f_without_bootstrap'
+        ##
+        if metric not in fc["predictions"][task][0]:
+            raise ValueError(f"File {file_path} is missing metric {metric} for task {task}!")
 
         if metric == "avg_mcauroc":
             local_data = [line[metric] for line in fc["predictions"][task]]
@@ -194,14 +203,11 @@ def read_json(file_path):
             probs = unzipped_list[1]
             data[task] = (golds, probs), metric
         else:
+
             scores = [line[metric] for line in fc["predictions"][task]]
             data[task] = scores, metric
-    data['results'] = fc['results']
 
-    # make sure all tasks are submitted
-    METADATA_FILE = "leaderboard/metadata.json"
-    with open(METADATA_FILE, "r") as f:
-        metadata = json.load(f)
+    data['results'] = fc['results']
 
     all_tasks = list(metadata["tasks"].keys())
     all_missing_tasks = []
@@ -217,6 +223,20 @@ def read_json(file_path):
 def process_task(task, dataA, dataB, significance_level):
     metricA = dataA[task][1]
     metricB = dataB[task][1]
+
+    # hotfix for rouge_raw naming,
+    # TODO: MF - to be refactored, after deprecating _without_bootstrap suffix
+    def hotfix_metric_name(m, d):
+        if m == 'rouge_raw_r2_mid_f_without_bootstrap':
+            newm = "rouge_raw_r2_mid_f"
+            d['results'][task][newm] = d['results'][task][m]
+            m = newm
+        return m
+
+    metricA = hotfix_metric_name(metricA, dataA)
+    metricB = hotfix_metric_name(metricB, dataB)
+    ##
+
     assert metricA == metricB
     assert len(dataA[task]) == len(dataB[task])
 
@@ -266,7 +286,8 @@ def check_significance(fileA, fileB, significance_level):
     tasks = list(dataA.keys())
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = {executor.submit(process_task, task, dataA, dataB, significance_level): task for task in tasks if task != 'results'}
+        futures = {executor.submit(process_task, task, dataA, dataB, significance_level): task for task in tasks if
+                   task != 'results'}
         _iter = tqdm(concurrent.futures.as_completed(futures), total=len(tasks))
         for future in _iter:
             task, result = future.result()

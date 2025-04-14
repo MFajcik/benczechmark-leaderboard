@@ -1,18 +1,14 @@
 import argparse
 import copy
 import glob
-import hashlib
-import os
 import json
+import os
 import re
+import sys
 
 import jsonlines
+from . import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
 from tqdm import tqdm
-
-from benczechmark_leaderboard.leaderboard import SUPPORTED_METRICS, EXTRA_INFO_RELEASE_KEYS
-
-with open("leaderboard/metadata.json", "r") as f:
-    METADATA = json.load(f)
 
 # TASK MAP
 # from promptname to taskname
@@ -84,6 +80,14 @@ NO_PROMPT_TASKS = ["benczechmark_histcorpus",
                    "benczechmark_spoken",
                    "benczechmark_dialect"]
 
+# TODO: Remove deprecated warning in 1.0.0
+DEPRECATED_TASKS = [
+    "benczechmark_speeches",
+    "benczechmark_capek",
+    "benchmark_czechnews",
+    "benczechmark_summarization"
+]
+
 
 def resolve_taskname(taskname):
     if taskname not in MAP:
@@ -101,11 +105,18 @@ def rename_keys(d, resolve_taskname):
     assert len(d) == orig_len
 
 
-def process_harness_logs(input_folders, output_file):
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
+def process_harness_logs(input_folders_pattern, output_file, metadata_file):
     """
     - Selects best prompt for each task
     - Extract data for that prompt, necessary for targe/mnt/data/ifajcik/micromamba/envs/envs/lmharnest metrics
     """
+
+    with open(metadata_file, "r") as f:
+        METADATA = json.load(f)
 
     def expand_input_folders(input_folders):
         # Check if input_folders is a wildcard pattern
@@ -116,11 +127,14 @@ def process_harness_logs(input_folders, output_file):
         else:
             # If it's not a wildcard, return the input as a single-item list if it's a valid directory
             if os.path.isdir(input_folders):
-                return [input_folders]
+                return [os.path.join(input_folders,d) for d in os.listdir(input_folders)]
             else:
                 return []
 
-    input_folders = expand_input_folders(input_folders)
+    input_folders = expand_input_folders(input_folders_pattern)
+
+    if not input_folders:
+        raise ValueError(f"No folders found at {input_folders_pattern}")
 
     per_task_results = {}
     metric_per_task = {}
@@ -132,7 +146,7 @@ def process_harness_logs(input_folders, output_file):
         # consider first folder within this folder
         input_folder = os.path.join(input_folder, os.listdir(input_folder)[0])
         # find file which starts with results... prefix in the input_folder
-        result_file = [f for f in os.listdir(input_folder) if f.startswith("results")][0]
+        result_file = [f for f in os.listdir(input_folder) if f.startswith("results") and f.endswith("json")][0]
         with open(os.path.join(input_folder, result_file), "r") as f:
             harness_results = json.load(f)
         all_harness_results[list(harness_results['results'].values())[0]['alias']] = harness_results
@@ -141,6 +155,11 @@ def process_harness_logs(input_folders, output_file):
             if name in NO_PROMPT_TASKS:
                 # not prompts
                 taskname = name
+
+                if taskname in DEPRECATED_TASKS:
+                    eprint(f"Task {taskname} is deprecated. Skipping...")
+                    continue
+
                 # process metric names
                 for k, v in copy.deepcopy(result).items():
                     if "," in k:
@@ -154,6 +173,10 @@ def process_harness_logs(input_folders, output_file):
                 taskname = name[:-1]
                 if taskname.endswith("_"):
                     taskname = taskname[:-1]
+
+                if taskname in DEPRECATED_TASKS:
+                    eprint(f"Task {taskname} is deprecated. Skipping...")
+                    continue
 
                 # process metric names
                 for k, v in copy.deepcopy(result).items():
@@ -173,18 +196,25 @@ def process_harness_logs(input_folders, output_file):
             if not taskname in current_multipleprompt_tasknames:
                 continue
             best_result = None
-            target_metric = None
-            for m in SUPPORTED_METRICS:
-                if m in results[0]:
-                    target_metric = m
-                    break
+            target_metric = METADATA['tasks'][resolve_taskname(taskname)]['metric']
             if target_metric is None:
                 raise ValueError(f"No supported metric found in {taskname}")
             metric_per_task[taskname] = target_metric
 
             all_measured_results = []
             for result in results:
-                all_measured_results.append(result[target_metric])
+                try:
+                    all_measured_results.append(result[target_metric])
+                except KeyError:
+                    # Recently,  rouge version wo bootstrap was added. Fixing compatibility for both.
+                    if target_metric == "rouge_raw_r2_mid_f":
+                        target_metric += "_without_bootstrap"
+                    try:
+                        all_measured_results.append(result[target_metric])
+                    except KeyError:
+                        raise ValueError(
+                            f"{target_metric} is not present in the results of {resolve_taskname(taskname)}")
+
                 if best_result is None:
                     best_result = result
                 else:
@@ -257,7 +287,8 @@ def process_harness_logs(input_folders, output_file):
         'fewshot_as_multiturn': harness_results['fewshot_as_multiturn'],
         'chat_template': harness_results['chat_template'],
         'chat_template_sha': harness_results['chat_template_sha'],
-        'total_evaluation_time_seconds': {k:v['total_evaluation_time_seconds'] for k,v in all_harness_results.items()},
+        'total_evaluation_time_seconds': {k: v['total_evaluation_time_seconds'] for k, v in
+                                          all_harness_results.items()},
         'n-shot': all_harness_results['CTKFacts NLI']['n-shot']['ctkfacts_0']
     }
 
@@ -280,14 +311,30 @@ def process_harness_logs(input_folders, output_file):
 
 
 def main():
+    METADATA_DEFAULTDIR = "leaderboard/metadata.json"
+
     parser = argparse.ArgumentParser(
         description="Process outputs of lm harness into minimum compatible format necessary for leaderboard submission.")
-    parser.add_argument("-i", "-f", "--input_folder", "--folder",
-                        help="Folder with unprocessed results from lm harness.", required=True)
-    parser.add_argument("-o", "--output_file", help="File to save processed results.", required=True)
+    parser.add_argument(
+        "-i", "-f", "--input_folder", "--folder",
+        help="Folder with unprocessed results from lm harness.",
+        required=True
+    )
+
+    parser.add_argument(
+        "-o", "--output_file",
+        help="File to save processed results.",
+        required=True
+    )
+
+    parser.add_argument(
+        "-m", "--metadata_file",
+        help=f"Path to the metadata file. Default is {METADATA_DEFAULTDIR}.",
+        default=METADATA_DEFAULTDIR
+    )
     args = parser.parse_args()
 
-    process_harness_logs(args.input_folder, args.output_file)
+    process_harness_logs(args.input_folder, args.output_file, args.metadata_file)
 
 
 if __name__ == "__main__":
