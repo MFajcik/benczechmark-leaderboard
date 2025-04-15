@@ -45,8 +45,16 @@ def _get_CMs(i, probabilities, references, thresholds):
 
 
 def compute_significance_ttest(scores_A, scores_B):
+    if np.allclose(scores_A, scores_B):
+        return 1.0, 0.0  # No significant difference
+
     delta = np.mean(scores_A) - np.mean(scores_B)
     t, p = ttest_rel(scores_A, scores_B)
+
+    if np.isnan(p):
+        print("ttest returned NaN!!!")
+        return 1.0, 0.0  # No significant difference
+
     # correct for one-tailed test
     p_value = p / 2
     return p_value, delta
